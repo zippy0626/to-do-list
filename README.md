@@ -41,8 +41,18 @@ This project aims to teach me how to ...
 
 
 ## Installation
+1. Clone this repo
+2. `cd` into the project directory folder
 ```
-
+ cd path-to-project
+```
+3. Run `npm install` while in directory to install package dependencies
+```
+ npm install
+```
+4. Run `npm run build` to generate `dist` folder
+```
+ npm run build
 ```
 
 
