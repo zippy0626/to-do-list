@@ -1,6 +1,7 @@
 //IIFE module, needs return statement
 //create read update delete - CRUD
 
+//This is for "global" items not linked with projects
 const ToDoItemStorage = (function() {
   let storage = [];
   const storageMap = new Map();
@@ -9,8 +10,8 @@ const ToDoItemStorage = (function() {
   //where values are arrays
 
   return {
-    addItem(item) {
-      const items = Array.isArray(item) ? item : [item];
+    addItem(newItem) {
+      const items = Array.isArray(newItem) ? newItem : [newItem];
 
       for (const item of items) {
         if (!item || !item.title) {
@@ -27,21 +28,21 @@ const ToDoItemStorage = (function() {
       };
     },
 
-    removeItem(item) {
-      if (!item || !item.title) {
+    removeItem(Item) {
+      if (!Item || !Item.title) {
         throw new Error("Please provide a valid item");
       };
       
-      storage = storage.filter((eachItem) => eachItem!=item);
+      storage = storage.filter((eachItem) => eachItem!=Item);
 
-      if (storageMap.has(item.title)) {
-        const otherDuplicateItems = storageMap.get(item.title)
-          .filter((eachItem) => eachItem!=item);
+      if (storageMap.has(Item.title)) {
+        const otherDuplicateItems = storageMap.get(Item.title)
+          .filter((eachItem) => eachItem!=Item);
         
         if (!otherDuplicateItems.length) {
-          storageMap.delete(item.title);
+          storageMap.delete(Item.title);
         } else {
-          storageMap.set(item.title, otherDuplicateItems);
+          storageMap.set(Item.title, otherDuplicateItems);//set new items
         };
       }
     },
@@ -52,6 +53,7 @@ const ToDoItemStorage = (function() {
       }
       return storageMap.get(itemTitle.trim())
     },
+
     getStorage() {
       return storage;
     },
