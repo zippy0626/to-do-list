@@ -1,6 +1,3 @@
-//IIFE module, needs return statement
-//create read update delete - CRUD
-
 //This is for "global" items not linked with projects
 const ToDoItemStorage = (function() {
   let storage = [];
@@ -10,8 +7,8 @@ const ToDoItemStorage = (function() {
   //where values are arrays
 
   return {
-    addItem(newItem) {
-      const items = Array.isArray(newItem) ? newItem : [newItem];
+    add(newTodo) {
+      const items = Array.isArray(newTodo) ? newTodo : [newTodo];
 
       for (const item of items) {
         if (!item || !item.title) {
@@ -23,35 +20,34 @@ const ToDoItemStorage = (function() {
         if (storageMap.has(item.title)) {
           storageMap.get(item.title).push(item)
         } else {
-          storageMap.set(item.title, [item]) //initiate new array in map
+          storageMap.set(item.title, [item])
         };
       };
     },
 
-    removeItem(Item) {
-      if (!Item || !Item.title) {
+    remove(toDoItem) { //fix this
+      if (!toDoItem || !toDoItem.title) {
         throw new Error("Please provide a valid item");
       };
       
-      storage = storage.filter((eachItem) => eachItem!=Item);
+      storage = storage.filter((eachItem) => eachItem!=toDoItem);
 
-      if (storageMap.has(Item.title)) {
-        const otherDuplicateItems = storageMap.get(Item.title)
-          .filter((eachItem) => eachItem!=Item);
+      if (storageMap.has(toDoItem.title)) {
+        const otherDuplicateItems = storageMap.get(toDoItem.title)
+          .filter((eachItem) => eachItem!=toDoItem);
         
         if (!otherDuplicateItems.length) {
-          storageMap.delete(Item.title);
+          storageMap.delete(toDoItem.title);
         } else {
-          storageMap.set(Item.title, otherDuplicateItems);//set new items
+          storageMap.set(toDoItem.title, otherDuplicateItems);//set other items
         };
       }
     },
     
-    getItem(itemTitle) {//case sensitive
-      if (!itemTitle || typeof itemTitle !== "string") {
-        throw new Error("Please provide a valid item title");
-      }
-      return storageMap.get(itemTitle.trim())
+    //case sensitive
+    getItem(itemTitle) {//fix this
+      if (storageMap[itemTitle]) return storageMap[itemTitle.trim()];
+      throw new Error(`Item ${itemTitle} could not be found in storage`);
     },
 
     getStorage() {
