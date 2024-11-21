@@ -38,11 +38,14 @@ const ProjectStorage = (function() {
       }
     },
     get(projectTitle) {//case sensitive
-      if (storageMap[projectTitle]) return storageMap[projectTitle.trim()];
-      throw new Error(`Project ${projectTitle} could not be found in storage`);
+      if (storageMap.get(projectTitle)) return storageMap.get(projectTitle);
+      throw new Error(`Project "${projectTitle}" could not be found in storage`);
     },
-    getStorage() {
+    storage() {
       return storage;
+    },
+    map() {
+      return storageMap;
     },
   };
 })

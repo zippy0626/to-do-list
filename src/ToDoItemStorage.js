@@ -41,12 +41,15 @@ const ToDoItemStorage = (function () {
       }
     },
     //case sensitive
-    getItem(itemTitle) {
-      if (storageMap[itemTitle]) return storageMap[itemTitle.trim()];
-      throw new Error(`Item ${itemTitle} could not be found in storage`);
+    get(itemTitle) {
+      if (storageMap.get(itemTitle)) return storageMap.get(itemTitle);
+      throw new Error(`Item "${itemTitle}" could not be found in storage`);
     },
-    getStorage() {
+    storage() {
       return storage;
+    },
+    map() {
+      return storageMap;
     },
   };
 })();
