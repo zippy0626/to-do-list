@@ -1,0 +1,202 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* outline: 1px black solid; */
+}
+
+@font-face {
+  font-family: Lato;
+  src: url("./assets/fonts/lato/Lato-Light.ttf");
+}
+
+:root {
+  --hoverColor: rgb(230, 230, 230);
+  --activeColor: rgb(225, 225, 225);
+
+  --borderRadiusPrimary: 5px;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  display: grid;
+  grid-template-columns: 275px 1fr 275px;
+  grid-template-rows: 1fr;
+  grid-template-areas: "menu main-display editor";
+  gap: 5px;
+
+  padding: 5px;
+
+  font-family: Lato;
+}
+
+.icon {
+  width: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  all: unset;
+}
+
+/* menu section */
+#menu {
+  --innerMenuLeftBoxPadding: 2px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 5px;
+
+  border: 1px whitesmoke solid;
+  border-radius: var(--borderRadiusPrimary);
+}
+#menu section {
+  margin: 8px 0 4px 0;
+}
+h1 {
+  display: flex;
+  align-items: center;
+
+  height: 35px;
+}
+h3 {
+  display: flex;
+  align-items: center;
+
+  height: 30px;
+}
+.menu-search-wrapper {
+  padding: 0 5px 0 5px;
+  background-color: rgba(16, 249, 16, 0.3);
+  border-radius: var(--borderRadiusPrimary);
+}
+
+/* search bar section */
+.search-bar {
+  --pixels: 25px;
+  --searchIconHeight: var(--pixels);
+  --searchIconWidth: var(--pixels);
+
+  display: flex;
+  align-items: center;
+
+  padding: var(--innerMenuLeftBoxPadding);
+
+  width: 100%;
+  height: 40px;
+}
+.search-bar label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-icon {
+  width: var(--searchIconWidth);
+  height: var(--searchIconHeight);
+  margin-right: 5px;
+
+  filter: opacity(.7);
+}
+/* actual bar */
+#search-bar {
+  height: 25px;
+  font-family: inherit;
+
+  padding-left: 8px;
+
+  border: 1px solid grey;
+  border-radius: var(--borderRadiusPrimary);
+
+  background-color: white;
+}
+
+/* tasks section */
+#tasks {
+  flex: 0 0 150px;
+}
+.task-btn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  padding-left: var(--innerMenuLeftBoxPadding);
+}
+.task-btn-container button {
+  width: 98%;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  
+  text-align: left;
+  font-size: 16px;
+  font-family: inherit;
+
+  border: none;
+  border-radius: var(--borderRadiusPrimary);
+
+  /* --value: 245;
+  background-color: rgb(var(--value), var(--value), var(--value)); */
+  background-color: rgba(0, 85, 255, 0.3);
+  
+  cursor: pointer;
+}
+.task-btn-container .icon {
+  margin: 0 6px 0 3px;
+}
+.task-btn-container button:hover {
+  background-color: var(--hoverColor);
+}
+.task-btn-container button:active {
+  background-color: var(--activeColor);
+}
+
+/* projects section */
+.projects-wrapper {
+  overflow: hidden;
+  border: 1px solid whitesmoke;
+  border-radius: var(--borderRadiusPrimary);
+}
+#projects {
+  flex: 1 0 auto;
+}
+.project-container {
+  overflow: auto;
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  height: 300px;
+}
+/* project item styling */
+.project-item {
+  height: 50px;
+  padding: 5px;
+  font-size: 15px;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: var(--borderRadiusPrimary);
+  background-color: rgb(250, 250, 250);
+}
+.project-due-date {
+  font-size: 13px;
+}
+.project-priority {
+  margin-left: auto;
+  padding: 5px 8px 5px 8px;
+
+  font-size: 12px;
+
+  border: 1px solid gray;
+  border-radius: var(--borderRadiusPrimary);
+}

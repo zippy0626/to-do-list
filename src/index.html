@@ -1,13 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-    
-</body>
+  <style>
+    .icon {
+      width: 18px;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 
+  <body>
+    <section id="menu">
+      <div class="menu-search-wrapper">
+        <h1>Menu</h1>
+        <section class="search-bar">
+          <label for="search-bar">
+            <img
+              src="./assets/icons/search-icon.svg"
+              alt="Search"
+              class="search-icon icon"
+            />
+          </label>
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Find your tasks or projects"
+            aria-placeholder="Find your tasks or Projects"
+          />
+        </section>
+      </div>
+      <section id="tasks">
+        <h3>My Tasks</h3>
+        <div class="task-btn-container">
+          <button class="tasks-upcoming">
+            <img
+              src="./assets/icons/upcoming-tasks-icon.svg"
+              alt="Upcoming Tasks"
+              class="icon"
+              draggable="false"
+            />
+            Upcoming
+          </button>
+          <button class="tasks-today">
+            <img
+              src="./assets/icons/today-icon.svg"
+              alt="Upcoming Tasks"
+              class="icon"
+              draggable="false"
+            />
+            Today
+          </button>
+          <button class="tasks-calendar">
+            <img
+              src="./assets/icons/calendar-icon.svg"
+              alt="Upcoming Tasks"
+              class="icon"
+              draggable="false"
+            />
+            Calendar
+          </button>
+        </div>
+      </section>
+      <section id="projects">
+        <h3>My Projects</h3>
+        <!-- dynamic load projects here -->
+        <div class="projects-wrapper">
+          <div class="project-container">
+
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            <div class="project-item">
+              <div class="project-desc">
+                <div class="project-title">Project Title</div>
+                <div class="project-due-date">Due at: 11/18/22</div>
+              </div>
+              <div class="project-priority">Medium</div>
+            </div>
+            
+
+        </div>
+      </section>
+    </section>
+
+    <!-- dynamic load current task here -->
+    <section id="main-display"></section>
+  </body>
 </html>
