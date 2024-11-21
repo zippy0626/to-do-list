@@ -7,7 +7,7 @@ const ProjectStorage = (function() {
   //where values are project objects
 
   return {
-    addProject(newProject) {
+    add(newProject) {
       if (!newProject || !newProject.title) {
         throw new Error("Please provide a valid project");
       };
@@ -19,7 +19,7 @@ const ProjectStorage = (function() {
         storage.push(newProject);
       };
     },
-    removeProject(project) { //fix this
+    remove(project) { //fix this
       if (!project || !project.title) {
         throw new Error("Please provide a valid project");
       };
@@ -37,7 +37,7 @@ const ProjectStorage = (function() {
         };
       }
     },
-    getProject(projectTitle) {//case sensitive
+    get(projectTitle) {//case sensitive
       if (storageMap[projectTitle]) return storageMap[projectTitle.trim()];
       throw new Error(`Project ${projectTitle} could not be found in storage`);
     },
