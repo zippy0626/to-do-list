@@ -8,12 +8,13 @@ export default class toDoItem {
     description = "No Description",
     dueDate = format(addDays(new Date(), 7), "MM-dd-yyyy"),
     priority = "Medium",
-    checkList = [],
+    checkList = [], // {name: ,desc: ,isComplete: ,}
     isComplete = false,
     projectTitle = null //not linked to a project
   ) {
     this._title = title;
     this._description = description;
+    this._createDate = format(new Date(), "MM-dd-yyyy");
     this._dueDate = dueDate;
     this._priority = priority; //critical, high, medium, low
     this._checkList = checkList;
@@ -39,6 +40,10 @@ export default class toDoItem {
       throw new Error("Description is invalid");
     }
     this._description = newDescription;
+  }
+
+  get createDate() {
+   return this._createDate; 
   }
 
   get dueDate() {
