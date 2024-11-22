@@ -16,24 +16,22 @@
 
   <body>
     <section id="menu">
-      <div class="menu-search-wrapper">
-        <h1>Menu</h1>
-        <section class="search-bar">
-          <label for="search-bar">
-            <img
-              src="./assets/icons/search-icon.svg"
-              alt="Search"
-              class="search-icon icon"
-            />
-          </label>
-          <input
-            type="text"
-            id="search-bar"
-            placeholder="Find your tasks or projects"
-            aria-placeholder="Find your tasks or Projects"
+      <h1>Menu</h1>
+      <section class="search-bar">
+        <label for="search-bar">
+          <img
+            src="./assets/icons/search-icon.svg"
+            alt="Search"
+            class="search-icon icon"
           />
-        </section>
-      </div>
+        </label>
+        <input
+          type="text"
+          id="search-bar"
+          placeholder="Find your tasks or projects"
+          aria-placeholder="Find your tasks or Projects"
+        />
+      </section>
       <section id="tasks">
         <h3>My Tasks</h3>
         <div class="task-btn-container">
@@ -68,6 +66,16 @@
       </section>
       <section id="projects">
         <h3>My Projects</h3>
+        <button class="sort-by-button">
+          Sort by..
+        </button>
+        <ul class="sort-options hidden ">
+          <li>Lowest Priority to Highest Priority</li>
+          <li>Highest Priority to Lowest Priority</li>
+          <li>Date Created</li>
+          <li>Date Due</li>
+        </ul>
+
         <!-- dynamic load projects here -->
         <div class="projects-wrapper">
           <div class="project-container">
@@ -77,86 +85,57 @@
                 <div class="project-title">Project Title</div>
                 <div class="project-due-date">Due at: 11/18/22</div>
               </div>
-              <div class="project-priority">Medium</div>
+              <div class="project-priority medium">Medium</div>
             </div>
             <div class="project-item">
               <div class="project-desc">
                 <div class="project-title">Project Title</div>
                 <div class="project-due-date">Due at: 11/18/22</div>
               </div>
-              <div class="project-priority">Medium</div>
+              <div class="project-priority high">High</div>
             </div>
             <div class="project-item">
               <div class="project-desc">
                 <div class="project-title">Project Title</div>
                 <div class="project-due-date">Due at: 11/18/22</div>
               </div>
-              <div class="project-priority">Medium</div>
+              <div class="project-priority low">Low</div>
             </div>
             <div class="project-item">
               <div class="project-desc">
                 <div class="project-title">Project Title</div>
                 <div class="project-due-date">Due at: 11/18/22</div>
               </div>
-              <div class="project-priority">Medium</div>
+              <div class="project-priority low">Low</div>
             </div>
             <div class="project-item">
               <div class="project-desc">
                 <div class="project-title">Project Title</div>
                 <div class="project-due-date">Due at: 11/18/22</div>
               </div>
-              <div class="project-priority">Medium</div>
+              <div class="project-priority low">Low</div>
             </div>
             <div class="project-item">
               <div class="project-desc">
                 <div class="project-title">Project Title</div>
                 <div class="project-due-date">Due at: 11/18/22</div>
               </div>
-              <div class="project-priority">Medium</div>
+              <div class="project-priority low">Low</div>
             </div>
             <div class="project-item">
               <div class="project-desc">
                 <div class="project-title">Project Title</div>
                 <div class="project-due-date">Due at: 11/18/22</div>
               </div>
-              <div class="project-priority">Medium</div>
+              <div class="project-priority low">Low</div>
             </div>
             <div class="project-item">
               <div class="project-desc">
                 <div class="project-title">Project Title</div>
                 <div class="project-due-date">Due at: 11/18/22</div>
               </div>
-              <div class="project-priority">Medium</div>
+              <div class="project-priority critical">Critical</div>
             </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority">Medium</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority">Medium</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority">Medium</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority">Medium</div>
-            </div>
-            
 
         </div>
       </section>
