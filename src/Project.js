@@ -13,6 +13,7 @@ export default class Project {
   ) {
     this._title = title;
     this._description = description;
+    this._createDate = format(new Date(), "MM-dd-yyyy");
     this._dueDate = dueDate;
     this._priority = priority; //critical, high, medium, low
     this._isComplete = isComplete;
@@ -37,6 +38,10 @@ export default class Project {
       throw new Error("Description cannot be Empty!");
     }
     this._description = newDescription.trim();
+  }
+
+  get createDate() {
+    return this._createDate;
   }
 
   get dueDate() {
