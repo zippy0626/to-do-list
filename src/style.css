@@ -25,7 +25,7 @@ body {
 }
 body {
   display: grid;
-  grid-template-columns: 275px 1fr 275px;
+  grid-template-columns: 290px 1fr 290px;
   grid-template-rows: 1fr;
   grid-template-areas: "menu main-display editor";
   gap: 5px;
@@ -66,6 +66,7 @@ h1 {
 
   height: 35px;
   margin: 5px 0 5px 0;
+  font-size: 30px;
 }
 h3 {
   display: flex;
@@ -160,6 +161,7 @@ h3 {
 #projects {
   flex: 1 0 auto;
 }
+
 /* drop down */
 button {
   all: unset;
@@ -173,9 +175,10 @@ button {
 
   padding: 2px 4px 2px 4px;
   margin-bottom: 3px;
-}
-.sort-by-button  {
+
   background-color: rgb(250, 250, 250);
+
+  cursor: pointer;
 }
 .sort-by-button:hover {
   background-color: var(--whiteSmokeHoverColor);
@@ -241,11 +244,22 @@ button {
 
   border-radius: var(--borderRadiusPrimary);
   background-color: rgb(250, 250, 250);
+
+  cursor: pointer;
+}
+.project-item:hover {
+  background-color: rgb(242, 242, 242);
+}
+.project-item:active {
+  background-color: rgb(232, 232, 232);
+}
+.project-title {
+  user-select: none;
 }
 .project-due-date {
   font-size: 13px;
 }
-.project-priority {
+.project-priority, .card-priority {
   margin-left: auto;
   padding: 5px 8px 5px 8px;
 
@@ -282,4 +296,75 @@ button {
   color: white;
 
   border: 1px solid purple;
+}
+
+/* main display section */
+#main-display {
+  border: var(--borderPrimary);
+  border-radius: var(--borderRadiusPrimary);
+
+  padding: 5px;
+
+  display: flex;
+  flex-direction: column;
+}
+.main-title-date-wrapper {
+  display: flex;
+  align-items: center;
+}
+.main-title {
+  margin-left: 3px;
+}
+.main-date {
+  margin: 5px 0 0 20px;
+  color: grey;
+  font-size: 22px;
+  font-weight: 100;
+}
+
+.card-container-wrapper {
+  border-radius: var(--borderRadiusPrimary);
+  overflow: hidden;
+}
+.card-container {
+  overflow: auto;
+  height: 576px;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* card styling */
+.card {
+  width: 590px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 5px;
+  margin-left: 3px;
+
+  border-radius: var(--borderRadiusPrimary);
+  background-color: whitesmoke;
+}
+.card-title {
+  font-size: 20px;
+}
+.card-info-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  font-size: 13px;
+}
+.card-project {
+  margin-top: 1px;
+  font-size: 11px;
+}
+
+/* editor section */
+#editor {
+  border: var(--borderPrimary);
+  border-radius: var(--borderRadiusPrimary);
 }

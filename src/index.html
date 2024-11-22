@@ -37,6 +37,15 @@
         <div class="task-btn-container">
           <button class="tasks-upcoming">
             <img
+              src="./assets/icons/add-new-icon.svg"
+              alt="Upcoming Tasks"
+              class="icon"
+              draggable="false"
+            />
+            Add New
+          </button>
+          <button class="tasks-upcoming">
+            <img
               src="./assets/icons/upcoming-tasks-icon.svg"
               alt="Upcoming Tasks"
               class="icon"
@@ -53,7 +62,7 @@
             />
             Today
           </button>
-          <button class="tasks-calendar">
+          <!-- <button class="tasks-calendar">
             <img
               src="./assets/icons/calendar-icon.svg"
               alt="Upcoming Tasks"
@@ -61,7 +70,7 @@
               draggable="false"
             />
             Calendar
-          </button>
+          </button> -->
         </div>
       </section>
       <section id="projects">
@@ -75,7 +84,6 @@
           <li>Date Created</li>
           <li>Date Due</li>
         </ul>
-
         <!-- dynamic load projects here -->
         <div class="projects-wrapper">
           <div class="project-container">
@@ -141,7 +149,38 @@
       </section>
     </section>
 
-    <!-- dynamic load current task here -->
-    <section id="main-display"></section>
+    <!-- dynamic load project/tasks here -->
+    <!-- append modules to main-display -->
+    <section id="main-display">
+      <div class="main-title-date-wrapper">
+        <h1 class="main-title">
+          Today's Tasks
+        </h1>
+        <h2 class="main-date">
+          11/14/24
+        </h2>
+      </div>
+
+      <div class="card-container-wrapper">
+        <div class="card-container">
+
+          <div class="card">
+            <div class="card-title-wrapper">
+              <div class="card-title">Title</div>
+              <div class="card-info-wrapper">
+                <div class="card-due-date">Due 11/11/24</div>
+                <div class="card-complete-status">Not Complete</div>
+                <div class="card-project">From My Project</div>
+              </div>
+            </div>
+            <div class="card-priority medium">Medium</div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <section id="editor"></section>
   </body>
 </html>
