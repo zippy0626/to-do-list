@@ -1,68 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
 
-  <style>
-    .icon {
-      width: 18px;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
 
-  <body>
-    <section id="menu">
-      <h1>Menu</h1>
-      <section class="search-bar">
-        <label for="search-bar">
-          <img
-            src="./assets/icons/search-icon.svg"
-            alt="Search"
-            class="search-icon icon"
-          />
-        </label>
-        <input
-          type="text"
-          id="search-bar"
-          placeholder="Find your tasks or projects"
-          aria-placeholder="Find your tasks or Projects"
-        />
-      </section>
-      <section id="tasks">
-        <h3>My Tasks</h3>
-        <div class="task-btn-container">
-          <button class="tasks-upcoming">
-            <img
-              src="./assets/icons/add-new-icon.svg"
-              alt="Upcoming Tasks"
-              class="icon"
-              draggable="false"
-            />
-            Add New
-          </button>
-          <button class="tasks-upcoming">
-            <img
-              src="./assets/icons/upcoming-tasks-icon.svg"
-              alt="Upcoming Tasks"
-              class="icon"
-              draggable="false"
-            />
-            Upcoming
-          </button>
-          <button class="tasks-today">
-            <img
-              src="./assets/icons/today-icon.svg"
-              alt="Upcoming Tasks"
-              class="icon"
-              draggable="false"
-            />
-            Today
-          </button>
-          <!-- <button class="tasks-calendar">
+<style>
+  .icon {
+    width: 18px;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+<body>
+  <section id="menu">
+    <h1>Menu</h1>
+    <section class="search-bar">
+      <label for="search-bar">
+        <img src="./assets/icons/search-icon.svg" alt="Search" class="search-icon icon" />
+      </label>
+      <input type="text" id="search-bar" placeholder="Find your tasks or projects"
+        aria-placeholder="Find your tasks or Projects" />
+    </section>
+
+    <section id="tasks">
+      <h3>My Tasks</h3>
+      <div class="task-btn-container">
+        <button class="tasks-add-new">
+          <img src="./assets/icons/add-new-icon.svg" alt="Upcoming Tasks" class="icon" draggable="false" />
+          Add New Task/Project
+        </button>
+        <button class="tasks-upcoming">
+          <img src="./assets/icons/upcoming-tasks-icon.svg" alt="Upcoming Tasks" class="icon" draggable="false" />
+          Upcoming
+        </button>
+        <button class="tasks-today">
+          <img src="./assets/icons/today-icon.svg" alt="Upcoming Tasks" class="icon" draggable="false" />
+          Today
+        </button>
+        <button class="tasks-past">
+          <img src="./assets/icons/past-tasks-icon.svg" alt="Upcoming Tasks" class="icon" draggable="false" />
+          Past Tasks/Projects
+        </button>
+        <!-- <button class="tasks-calendar">
             <img
               src="./assets/icons/calendar-icon.svg"
               alt="Upcoming Tasks"
@@ -71,116 +54,181 @@
             />
             Calendar
           </button> -->
-        </div>
-      </section>
-      <section id="projects">
-        <h3>My Projects</h3>
-        <button class="sort-by-button">
-          Sort by..
-        </button>
-        <ul class="sort-options hidden ">
-          <li>Lowest Priority to Highest Priority</li>
-          <li>Highest Priority to Lowest Priority</li>
-          <li>Date Created</li>
-          <li>Date Due</li>
-        </ul>
-        <!-- dynamic load projects here -->
-        <div class="projects-wrapper">
-          <div class="project-container">
-
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority medium">Medium</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority high">High</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority low">Low</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority low">Low</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority low">Low</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority low">Low</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority low">Low</div>
-            </div>
-            <div class="project-item">
-              <div class="project-desc">
-                <div class="project-title">Project Title</div>
-                <div class="project-due-date">Due at: 11/18/22</div>
-              </div>
-              <div class="project-priority critical">Critical</div>
-            </div>
-
-        </div>
-      </section>
+      </div>
     </section>
 
-    <!-- dynamic load project/tasks here -->
-    <!-- append modules to main-display -->
-    <section id="main-display">
-      <div class="main-title-date-wrapper">
-        <h1 class="main-title">
-          Today's Tasks
-        </h1>
-        <h2 class="main-date">
-          11/14/24
-        </h2>
-      </div>
+    <section id="projects">
+      <h3>My Projects</h3>
+      <button class="sort-by-button">
+        Sort by..
+      </button>
+      <ul class="sort-options hidden ">
+        <li>Lowest Priority to Highest Priority</li>
+        <li>Highest Priority to Lowest Priority</li>
+        <li>Date Created</li>
+        <li>Date Due</li>
+      </ul>
+      <!-- dynamic load projects here -->
+      <div class="projects-wrapper">
+        <div class="project-container">
 
-      <div class="card-container-wrapper">
-        <div class="card-container">
-
-          <div class="card">
-            <div class="card-title-wrapper">
-              <div class="card-title">Title</div>
-              <div class="card-info-wrapper">
-                <div class="card-due-date">Due 11/11/24</div>
-                <div class="card-complete-status">Not Complete</div>
-                <div class="card-project">From My Project</div>
-              </div>
+          <div class="project-item">
+            <div class="project-desc">
+              <div class="project-title">Project Title</div>
+              <div class="project-due-date">Due at: 11/18/22</div>
             </div>
-            <div class="card-priority medium">Medium</div>
+            <div class="project-priority medium">Medium</div>
+          </div>
+          <div class="project-item">
+            <div class="project-desc">
+              <div class="project-title">Project Title</div>
+              <div class="project-due-date">Due at: 11/18/22</div>
+            </div>
+            <div class="project-priority high">High</div>
+          </div>
+          <div class="project-item">
+            <div class="project-desc">
+              <div class="project-title">Project Title</div>
+              <div class="project-due-date">Due at: 11/18/22</div>
+            </div>
+            <div class="project-priority low">Low</div>
+          </div>
+          <div class="project-item">
+            <div class="project-desc">
+              <div class="project-title">Project Title</div>
+              <div class="project-due-date">Due at: 11/18/22</div>
+            </div>
+            <div class="project-priority low">Low</div>
+          </div>
+          <div class="project-item">
+            <div class="project-desc">
+              <div class="project-title">Project Title</div>
+              <div class="project-due-date">Due at: 11/18/22</div>
+            </div>
+            <div class="project-priority low">Low</div>
+          </div>
+          <div class="project-item">
+            <div class="project-desc">
+              <div class="project-title">Project Title</div>
+              <div class="project-due-date">Due at: 11/18/22</div>
+            </div>
+            <div class="project-priority low">Low</div>
+          </div>
+          <div class="project-item">
+            <div class="project-desc">
+              <div class="project-title">Project Title</div>
+              <div class="project-due-date">Due at: 11/18/22</div>
+            </div>
+            <div class="project-priority low">Low</div>
+          </div>
+          <div class="project-item">
+            <div class="project-desc">
+              <div class="project-title">Project Title</div>
+              <div class="project-due-date">Due at: 11/18/22</div>
+            </div>
+            <div class="project-priority critical">Critical</div>
           </div>
 
         </div>
+    </section>
+  </section>
+
+  <!-- dynamic load project/tasks here -->
+  <!-- append modules to main-display -->
+  <section id="main-display">
+    <div class="main-title-date-wrapper">
+      <h1 class="main-title">
+        Today's Tasks
+      </h1>
+      <h2 class="main-date">
+        11/14/24
+      </h2>
+    </div>
+
+    <div class="card-container-wrapper">
+      <div class="card-container">
+
+        <div class="card">
+          <div class="card-title-wrapper">
+            <div class="card-title">Title</div>
+            <div class="card-info-wrapper">
+              <div class="card-due-date">Due 11/11/24</div>
+              <div class="card-complete-status">Not Complete</div>
+              <div class="card-project">From My Project</div>
+            </div>
+          </div>
+          <div class="card-priority medium">Medium</div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <section id="editor">
+    <h1 class="editor-title">Add New Task</h1>
+
+    <form action="#">
+      <div>
+        <label for="task-title">
+          Title
+          <span aria-label="Required"><strong>*</strong></span>
+        </label>
+        <input type="text" id="task-title" name="title" placeholder="My Task" aria-placeholder="My Task">
       </div>
 
-    </section>
+      <div>
+        <label for="task-desc">
+          Description
+        </label>
+        <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
+          name="description"></textarea>
+      </div>
 
-    <section id="editor"></section>
-  </body>
+      <div>
+        <label for="task-due-date">
+          Due date
+        </label>
+        <input type="date" id="task-due-date" name="dueDate">
+      </div>
+
+      <div id="priority-radio-buttons">
+        <label>Priority</label>
+
+        <div class="priority-radio-buttons-wrapper">
+          <div>
+            <input type="radio" id="task-priority-low" name="priority">
+            <label for="task-priority-low" class="low">Low</label>
+          </div>
+          <div>
+            <input type="radio" id="task-priority-medium" name="priority">
+            <label for="task-priority-medium" class="medium">Medium</label>
+          </div>
+          <div>
+            <input type="radio" id="task-priority-high" name="priority">
+            <label for="task-priority-high" class="high">High</label>
+          </div>
+          <div>
+            <input type="radio" id="task-priority-critical" name="priority">
+            <label for="task-priority-critical" class="critical">Critical</label>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="task-checklist">Checklist</label>
+        <textarea id="task-checklist" name="checkList" aria-placeholder="Additional Subtasks"
+          placeholder="Additional Subtasks. Enter as a comma seperated list. "></textarea>
+      </div>
+
+      <div>
+        <label for="task-link-to-project">Link to a Project</label>
+        <input type="text" id="task-link-to-project" name="projectTitle" placeholder="Project's Title"
+          aria-placeholder="Project Title">
+      </div>
+
+    </form>
+  </section>
+</body>
+
 </html>
