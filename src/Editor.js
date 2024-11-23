@@ -1,5 +1,96 @@
-export default function showEditorAs() {
-  //add new task + checkList, view task details + checklist,
-  //
-  
+export default function getEditorAs(editorType) {
+  //add new task, view task details, add new project, view project, DEFAULT VIEW
+
+  if (editorType==="default") {
+    const defaultView = `
+      <div class="message-wrapper">
+        <div class="message">Click a task/project to view or edit it</div>
+      </div>
+    `
+    return defaultView;
+  }
+
+  if (editorType==="addnewtask") {
+    const addNewTaskForm = `
+      <h1 class="editor-title">Add New Task</h1>
+      <form>
+        <div>
+          <label for="task-title">
+            Title
+            <span aria-label="Required"><strong>*</strong></span>
+            <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
+          </label>
+          <input type="text" id="task-title" name="title" placeholder="My Task" aria-placeholder="My Task"
+          required>
+        </div>
+
+        <div>
+          <label for="task-desc">
+            Description
+          </label>
+          <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
+            name="description"></textarea>
+        </div>
+
+        <div>
+          <label for="task-due-date">
+            Due date
+          </label>
+          <input type="date" id="task-due-date" name="dueDate">
+        </div>
+
+        <div id="priority-radio-buttons">
+          <label>Priority</label>
+
+          <div class="priority-radio-buttons-wrapper">
+            <div>
+              <input type="radio" id="task-priority-low" name="priority">
+              <label for="task-priority-low" class="low">Low</label>
+            </div>
+            <div>
+              <input type="radio" id="task-priority-medium" name="priority">
+              <label for="task-priority-medium" class="medium">Medium</label>
+            </div>
+            <div>
+              <input type="radio" id="task-priority-high" name="priority">
+              <label for="task-priority-high" class="high">High</label>
+            </div>
+            <div>
+              <input type="radio" id="task-priority-critical" name="priority">
+              <label for="task-priority-critical" class="critical">Critical</label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label for="task-checklist">Checklist</label>
+          <textarea id="task-checklist" name="checkList" aria-placeholder="Additional Subtasks"
+            placeholder="Additional Subtasks. Enter as a comma seperated list. "></textarea>
+        </div>
+
+        <div>
+          <label for="task-link-to-project">Link to a Project</label>
+          <input type="text" id="task-link-to-project" name="projectTitle" placeholder="Project's Title"
+            aria-placeholder="Project Title">
+        </div>
+
+        <button type="submit" class="submit-button">
+          Done
+        </button>
+      </form>
+    `
+    return addNewTaskForm;
+  };
+
+  if (editorType==="viewtask") {
+
+  }
+
+  if (editorType==="addnewproject") {
+    
+  }
+
+  if (editorType==="viewproject") {
+    
+  }
 }
