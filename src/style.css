@@ -270,31 +270,34 @@ button {
 }
 /* prio tags */
 .medium {
-  background-color: rgb(255, 255, 0, .5);
+  background-color: rgba(255, 255, 0, 0.5);
 
-  color: rgb(103, 103, 0);
+  color: rgb(85, 85, 0);
 
   border: 1px solid rgb(161, 161, 0);
 
   border-radius: var(--borderRadiusPrimary);
+  user-select: none;
 }
 .high {
-  background-color: rgba(255, 0, 0, .7);
+  background-color: rgba(255, 0, 0, 0.70);
   
-  color: rgb(90, 1, 1);
+  color: rgb(111, 13, 13);
 
   border: 1px solid rgb(190, 0, 0);
 
   border-radius: var(--borderRadiusPrimary);
+  user-select: none;
 }
 .low {
-  background-color: rgb(0, 190, 0, .3);
+  background-color: rgb(0, 190, 0, .2);
 
   color: green;
 
   border: 1px solid green;
 
   border-radius: var(--borderRadiusPrimary);
+  user-select: none;
 }
 .critical {
   background-color: rgb(156, 58, 255);
@@ -304,6 +307,7 @@ button {
   border: 1px solid purple;
 
   border-radius: var(--borderRadiusPrimary);
+  user-select: none;
 }
 
 /* main display section */
@@ -340,22 +344,31 @@ button {
   
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 13px;
 }
 /* card styling */
 .card {
-  width: 590px;
-  height: 50px;
+  width: 580px;
+  height: 55px;
 
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 
-  padding: 5px;
-  margin-left: 3px;
+  padding: 0 8px 0 8px;
 
   border-radius: var(--borderRadiusPrimary);
   background-color: whitesmoke;
+
+  cursor: pointer;
 }
+.card:hover {
+  background-color: rgb(240, 240, 240);
+}
+.card:active {
+  background-color: rgb(235, 235, 235);
+}
+
 .card-title {
   font-size: 20px;
 }
@@ -364,11 +377,18 @@ button {
   align-items: center;
   gap: 1rem;
 
+  margin-top: 2px;
+
   font-size: 13px;
+  user-select: none;
+}
+.card-complete-status {
+  background-color: rgb(221, 221, 221);
+  padding: 1px 2px 1px 2px;
 }
 .card-project {
-  margin-top: 1px;
-  font-size: 11px;
+  background-color: rgb(221, 133, 0, .3);
+  padding: 1px 3px 1px 3px;
 }
 
 /* editor section */
@@ -392,13 +412,11 @@ button {
   display: flex;
   flex-direction: column;
 }
+
 #editor div {
   display: flex;
   flex-direction: column;
   margin-bottom: 5px;
-}
-#editor label input {
-  font-size: 15px;
 }
 #editor input {
   border: 1px solid rgb(200, 200, 200);
@@ -409,6 +427,9 @@ button {
 
   height: 18px;
   width: 95%;
+
+  font-size: 15px;
+  color: rgb(0, 0, 0) !important;
 }
 #editor label {
   margin-bottom: 5px;
@@ -419,30 +440,41 @@ button {
 
   padding: 5px;
   font-family: inherit;
+  color: rgb(0, 0, 0) !important;
   resize: none;
 
-  height: 100px;
+  height: 80px;
 }
+
 #task-due-date {
   font-size: 15px;
   color: grey;
 }
+#editor strong {
+  font-size: 14px;
+  color: red;
+}
 
+/* radio buttons */
 input[type=radio] {
   all: revert;
   accent-color: grey;
+
+  --pixels: 10px;
+  width: var(--pixels) !important;
+  height: var(--pixels) !important;
 }
-/* radio buttons */
 #priority-radio-buttons div {
   display: flex;
   flex-direction: row;
   margin: 0 !important ;
 }
+/* priority tags */
 #priority-radio-buttons div label {
   display: flex;
   align-items: center;
 
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
   margin-bottom: 2px;
 
@@ -451,7 +483,107 @@ input[type=radio] {
   user-select: none;
   cursor: pointer;
 }
-.priority-radio-buttons-wrapper {
+.radio-buttons-wrapper {
   display: flex;
   justify-content: space-around;
+}
+
+.submit-button {
+  width: fit-content;
+  padding: 4px 8px 4px 8px;
+
+  background-color: rgb(61, 115, 223);
+  color: white;
+  border-radius: var(--borderRadiusPrimary);
+  border: 1px rgb(0, 0, 163) solid;
+
+  font-weight: bold;
+  font-size: 14px;
+
+  cursor: pointer;
+  user-select: none;
+}
+.submit-button:hover {
+  background-color: rgb(70, 120, 238);
+}
+.submit-button:active {
+  background-color: rgb(50, 105, 213);
+}
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin: 0 !important;
+}
+/* default editor msg */
+.message-wrapper {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.message {
+  color: rgb(80,80,80);
+  user-select: none;
+}
+
+/* project editor */
+label[for="task-group-tasks"] {
+  margin-top: 5px;
+}
+/* group related tasks checkbox */
+input[type="checkbox"] {
+  all: revert !important;
+  width: 12px !important;
+  height: 12px !important;
+  margin: 4px 8px 5px 3px !important;
+}
+.group-related-tasks-wrapper {
+  overflow: auto;
+  width: 100%;
+  height: 150px;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  outline: var(--borderPrimary);
+  border-radius: var(--borderRadiusPrimary);
+}
+#group-related-tasks .checkbox-item {
+  display: flex;
+  flex-direction: row;
+
+  font-size: 16px;
+  margin-bottom: 0;
+
+  cursor: pointer;
+  user-select: none;
+}
+#group-related-tasks .checkbox-item:hover {
+  background-color: whitesmoke;
+}
+
+/* delete btn + Complete? Options */
+.task-complete-radio-buttons {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: start;
+  gap: 10px;
+
+  margin: 0 !important;
+}
+.task-complete-radio-buttons input[type="radio"] {
+  width: 13px !important;
+  height: 13px !important;
+  cursor: pointer;
+}
+.task-complete-radio-buttons label[class] {
+  cursor: pointer;
+}
+.task-complete-radio-buttons div {
+  display: flex !important;
+  flex-direction: row !important;
+  margin: 0 !important;
 }
