@@ -20,7 +20,7 @@ export default function getEditorAs(editorType) {
   };
 
   if (editorType==="addNewTask") {
-    const addNewTaskForm = `
+    const str = `
       <h1 class="editor-title">Add New Task</h1>
       <form>
         <div>
@@ -34,6 +34,23 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div>
+          <label>
+            Completed?
+            <span aria-label="Required"><strong>*</strong></span>
+          </label>
+          <div class="radio-buttons-wrapper task-complete-radio-buttons">
+            <div>
+              <input type="radio" id="task-is-complete" name="isComplete" value="true" required>
+              <label for="task-is-complete" class="yes">Yes</label>
+            </div>
+            <div>
+              <input type="radio" id="task-is-not-complete" name="isComplete" value="false" required>
+              <label for="task-is-not-complete" class="no">No</label>
+            </div>
+          </div>
+        </div>
+
+        <div>
           <label for="task-desc">
             Description
           </label>
@@ -55,23 +72,23 @@ export default function getEditorAs(editorType) {
           </label>
 
           <div class="priority-radio-buttons-wrapper">
-            <div>
-              <input type="radio" id="task-priority-low" name="priority" required>
-              <label for="task-priority-low" class="low">Low</label>
-            </div>
-            <div>
-              <input type="radio" id="task-priority-medium" name="priority">
-              <label for="task-priority-medium" class="medium">Medium</label>
-            </div>
-            <div>
-              <input type="radio" id="task-priority-high" name="priority">
-              <label for="task-priority-high" class="high">High</label>
-            </div>
-            <div>
-              <input type="radio" id="task-priority-critical" name="priority">
-              <label for="task-priority-critical" class="critical">Critical</label>
-            </div>
+          <div>
+            <input type="radio" id="task-priority-low" name="priority" value="Low" required>
+            <label for="task-priority-low" class="low">Low</label>
           </div>
+          <div>
+            <input type="radio" id="task-priority-medium" name="priority" value="Medium">
+            <label for="task-priority-medium" class="medium">Medium</label>
+          </div>
+          <div>
+            <input type="radio" id="task-priority-high" name="priority" value="High">
+            <label for="task-priority-high" class="high">High</label>
+          </div>
+          <div>
+            <input type="radio" id="task-priority-critical" name="priority" value="Critical">
+            <label for="task-priority-critical" class="critical">Critical</label>
+          </div>
+        </div>
         </div>
 
         <div>
@@ -91,11 +108,11 @@ export default function getEditorAs(editorType) {
         </button>
       </form>
     `
-    return addNewTaskForm;
+    return str;
   };
 
   if (editorType==="viewEditTask") {
-    const viewEditForm = `
+    const str = `
       <h1 class="editor-title">View/Edit Task</h1>
       <form>
         <div>
@@ -109,6 +126,23 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div>
+          <label>
+            Completed?
+            <span aria-label="Required"><strong>*</strong></span>
+          </label>
+          <div class="radio-buttons-wrapper task-complete-radio-buttons">
+            <div>
+              <input type="radio" id="task-is-complete" name="isComplete" value="true" required>
+              <label for="task-is-complete" class="yes">Yes</label>
+            </div>
+            <div>
+              <input type="radio" id="task-is-not-complete" name="isComplete" value="false" required>
+              <label for="task-is-not-complete" class="no">No</label>
+            </div>
+          </div>
+        </div>
+
+        <div>
           <label for="task-desc">
             Description
           </label>
@@ -130,23 +164,23 @@ export default function getEditorAs(editorType) {
           </label>
 
           <div class="priority-radio-buttons-wrapper">
-            <div>
-              <input type="radio" id="task-priority-low" name="priority" required>
-              <label for="task-priority-low" class="low">Low</label>
-            </div>
-            <div>
-              <input type="radio" id="task-priority-medium" name="priority">
-              <label for="task-priority-medium" class="medium">Medium</label>
-            </div>
-            <div>
-              <input type="radio" id="task-priority-high" name="priority">
-              <label for="task-priority-high" class="high">High</label>
-            </div>
-            <div>
-              <input type="radio" id="task-priority-critical" name="priority">
-              <label for="task-priority-critical" class="critical">Critical</label>
-            </div>
+          <div>
+            <input type="radio" id="task-priority-low" name="priority" value="Low" required>
+            <label for="task-priority-low" class="low">Low</label>
           </div>
+          <div>
+            <input type="radio" id="task-priority-medium" name="priority" value="Medium">
+            <label for="task-priority-medium" class="medium">Medium</label>
+          </div>
+          <div>
+            <input type="radio" id="task-priority-high" name="priority" value="High">
+            <label for="task-priority-high" class="high">High</label>
+          </div>
+          <div>
+            <input type="radio" id="task-priority-critical" name="priority" value="Critical">
+            <label for="task-priority-critical" class="critical">Critical</label>
+          </div>
+        </div>
         </div>
 
         <div>
@@ -166,150 +200,184 @@ export default function getEditorAs(editorType) {
         </button>
       </form>
     `;
-    return viewEditForm;
+    return str;
   }
 
   if (editorType==="addNewProject") {
-    const addNewProjectForm = `
+    const str = `
       <h1 class="editor-title">Add New Project</h1>
-    <form>
-      <div>
-        <label for="task-title">
-          Project Title
-          <span aria-label="Required"><strong>*</strong></span>
-          <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
-        </label>
-        <input type="text" id="task-title" name="title" placeholder="My Project" aria-placeholder="My Project"
-        required>
-      </div>
+      <form>
+        <div>
+          <label for="task-title">
+            Project Title
+            <span aria-label="Required"><strong>*</strong></span>
+            <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
+          </label>
+          <input type="text" id="task-title" name="title" placeholder="My Project" aria-placeholder="My Project"
+          required>
+        </div>
 
-      <div>
-        <label for="task-desc">
-          Project Description
-        </label>
-        <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-          name="description"></textarea>
-      </div>
-
-      <div>
-        <label for="task-due-date">
-          Due date
-        </label>
-        <input type="date" id="task-due-date" name="dueDate">
-      </div>
-
-      <div id="priority-radio-buttons">
-        <label>
-          Priority
-          <span aria-label="Required"><strong>*</strong></span>
-        </label>
-
-        <div class="priority-radio-buttons-wrapper">
           <div>
-            <input type="radio" id="task-priority-low" name="priority" required>
-            <label for="task-priority-low" class="low">Low</label>
+            <label>
+              Completed?
+              <span aria-label="Required"><strong>*</strong></span>
+            </label>
+            <div class="radio-buttons-wrapper task-complete-radio-buttons">
+              <div>
+                <input type="radio" id="task-is-complete" name="isComplete" value="true" required>
+                <label for="task-is-complete" class="yes">Yes</label>
+              </div>
+              <div>
+                <input type="radio" id="task-is-not-complete" name="isComplete" value="false" required>
+                <label for="task-is-not-complete" class="no">No</label>
+              </div>
+            </div>
           </div>
-          <div>
-            <input type="radio" id="task-priority-medium" name="priority">
-            <label for="task-priority-medium" class="medium">Medium</label>
-          </div>
-          <div>
-            <input type="radio" id="task-priority-high" name="priority">
-            <label for="task-priority-high" class="high">High</label>
-          </div>
-          <div>
-            <input type="radio" id="task-priority-critical" name="priority">
-            <label for="task-priority-critical" class="critical">Critical</label>
+
+        <div>
+          <label for="task-desc">
+            Project Description
+          </label>
+          <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
+            name="description"></textarea>
+        </div>
+
+        <div>
+          <label for="task-due-date">
+            Due date
+          </label>
+          <input type="date" id="task-due-date" name="dueDate">
+        </div>
+
+        <div id="priority-radio-buttons">
+          <label>
+            Priority
+            <span aria-label="Required"><strong>*</strong></span>
+          </label>
+
+          <div class="priority-radio-buttons-wrapper">
+            <div>
+              <input type="radio" id="task-priority-low" name="priority" value="Low" required>
+              <label for="task-priority-low" class="low">Low</label>
+            </div>
+            <div>
+              <input type="radio" id="task-priority-medium" name="priority" value="Medium">
+              <label for="task-priority-medium" class="medium">Medium</label>
+            </div>
+            <div>
+              <input type="radio" id="task-priority-high" name="priority" value="High">
+              <label for="task-priority-high" class="high">High</label>
+            </div>
+            <div>
+              <input type="radio" id="task-priority-critical" name="priority" value="Critical">
+              <label for="task-priority-critical" class="critical">Critical</label>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div id="group-related-tasks">
-        <label>Group Related Tasks</label>
+        <div id="group-related-tasks">
+          <label>Group Related Tasks</label>
 
-        <!-- dynamically load all recent tasks here -->
-        <div class="group-related-tasks-wrapper">
+          <!-- dynamically load all recent tasks here -->
+          <div class="group-related-tasks-wrapper">
 
+          </div>
         </div>
-      </div>
 
-      <button type="submit" class="submit-button">
-        Done
-      </button>
-    </form>
+        <button type="submit" class="submit-button">
+          Done
+        </button>
+      </form>
     `;
-    return addNewProjectForm;
+    return str;
   }
 
   if (editorType==="viewEditProject") {
-    const viewEditProject = `
+    const str = `
       <h1 class="editor-title">View/Edit Project</h1>
-    <form>
-      <div>
-        <label for="task-title">
-          Project Title
-          <span aria-label="Required"><strong>*</strong></span>
-          <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
-        </label>
-        <input type="text" id="task-title" name="title" placeholder="My Project" aria-placeholder="My Project"
-        required>
-      </div>
+      <form>
+        <div>
+          <label for="task-title">
+            Project Title
+            <span aria-label="Required"><strong>*</strong></span>
+            <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
+          </label>
+          <input type="text" id="task-title" name="title" placeholder="My Project" aria-placeholder="My Project"
+          required>
+        </div>
 
-      <div>
-        <label for="task-desc">
-          Project Description
-        </label>
-        <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-          name="description"></textarea>
-      </div>
-
-      <div>
-        <label for="task-due-date">
-          Due date
-        </label>
-        <input type="date" id="task-due-date" name="dueDate">
-      </div>
-
-      <div id="priority-radio-buttons">
-        <label>
-          Priority
-          <span aria-label="Required"><strong>*</strong></span>
-        </label>
-
-        <div class="priority-radio-buttons-wrapper">
-          <div>
-            <input type="radio" id="task-priority-low" name="priority" required>
-            <label for="task-priority-low" class="low">Low</label>
-          </div>
-          <div>
-            <input type="radio" id="task-priority-medium" name="priority">
-            <label for="task-priority-medium" class="medium">Medium</label>
-          </div>
-          <div>
-            <input type="radio" id="task-priority-high" name="priority">
-            <label for="task-priority-high" class="high">High</label>
-          </div>
-          <div>
-            <input type="radio" id="task-priority-critical" name="priority">
-            <label for="task-priority-critical" class="critical">Critical</label>
+        <div>
+          <label>
+            Completed?
+            <span aria-label="Required"><strong>*</strong></span>
+          </label>
+          <div class="radio-buttons-wrapper task-complete-radio-buttons">
+            <div>
+              <input type="radio" id="task-is-complete" name="isComplete" value="true" required>
+              <label for="task-is-complete" class="yes">Yes</label>
+            </div>
+            <div>
+              <input type="radio" id="task-is-not-complete" name="isComplete" value="false" required>
+              <label for="task-is-not-complete" class="no">No</label>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div id="group-related-tasks">
-        <label>Group Related Tasks</label>
-        
-        <!-- dynamically load all recent tasks here -->
-        <div class="group-related-tasks-wrapper">
-
+        <div>
+          <label for="task-desc">
+            Project Description
+          </label>
+          <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
+            name="description"></textarea>
         </div>
-      </div>
 
-      <button type="submit" class="submit-button">
-        Done
-      </button>
-    </form>
+        <div>
+          <label for="task-due-date">
+            Due date
+          </label>
+          <input type="date" id="task-due-date" name="dueDate">
+        </div>
+
+        <div id="priority-radio-buttons">
+          <label>
+            Priority
+            <span aria-label="Required"><strong>*</strong></span>
+          </label>
+
+          <div class="priority-radio-buttons-wrapper">
+            <div>
+              <input type="radio" id="task-priority-low" name="priority" value="Low" required>
+              <label for="task-priority-low" class="low">Low</label>
+            </div>
+            <div>
+              <input type="radio" id="task-priority-medium" name="priority" value="Medium">
+              <label for="task-priority-medium" class="medium">Medium</label>
+            </div>
+            <div>
+              <input type="radio" id="task-priority-high" name="priority" value="High">
+              <label for="task-priority-high" class="high">High</label>
+            </div>
+            <div>
+              <input type="radio" id="task-priority-critical" name="priority" value="Critical">
+              <label for="task-priority-critical" class="critical">Critical</label>
+            </div>
+          </div>
+        </div>
+
+        <div id="group-related-tasks">
+          <label>Group Related Tasks</label>
+          
+          <!-- dynamically load all recent tasks here -->
+          <div class="group-related-tasks-wrapper">
+
+          </div>
+        </div>
+
+        <button type="submit" class="submit-button">
+          Done
+        </button>
+      </form>
     `
-    return viewEditProject;
+    return str;
   }
 }
