@@ -269,44 +269,32 @@ button {
   border-radius: var(--borderRadiusPrimary);
 }
 /* prio tags */
-.medium {
-  background-color: rgba(255, 255, 0, 0.5);
-
-  color: rgb(85, 85, 0);
-
-  border: 1px solid rgb(161, 161, 0);
-
+.low {
+  background-color: rgb(0, 190, 0, .4);
+  color: rgb(0, 128, 0);
   border-radius: var(--borderRadiusPrimary);
+  border: 1px solid rgb(0, 128, 0); /*70% of bgcol*/
+  user-select: none;
+}
+.medium {
+  background-color: rgba(255, 255, 0, .4);
+  color: rgb(100, 100, 0);
+  border-radius: var(--borderRadiusPrimary);
+  border: 1px solid rgb(170, 170, 0);
   user-select: none;
 }
 .high {
-  background-color: rgba(255, 0, 0, 0.70);
-  
-  color: rgb(111, 13, 13);
-
+  background-color: rgba(255, 0, 0, .4);
+  color: rgb(120, 0, 0);
+  border-radius: var(--borderRadiusPrimary);
   border: 1px solid rgb(190, 0, 0);
-
-  border-radius: var(--borderRadiusPrimary);
-  user-select: none;
-}
-.low {
-  background-color: rgb(0, 190, 0, .2);
-
-  color: green;
-
-  border: 1px solid green;
-
-  border-radius: var(--borderRadiusPrimary);
   user-select: none;
 }
 .critical {
-  background-color: rgb(156, 58, 255);
-
+  background-color: rgba(156, 56, 255, 0.9);
   color: white;
-
-  border: 1px solid purple;
-
   border-radius: var(--borderRadiusPrimary);
+  border: 1px solid rgba(100, 56, 205, 0.9);
   user-select: none;
 }
 
@@ -483,7 +471,7 @@ input[type=radio] {
   user-select: none;
   cursor: pointer;
 }
-.radio-buttons-wrapper {
+.priority-radio-buttons-wrapper , .radio-buttons-wrapper {
   display: flex;
   justify-content: space-around;
 }
@@ -581,6 +569,7 @@ input[type="checkbox"] {
 }
 .task-complete-radio-buttons label[class] {
   cursor: pointer;
+  user-select: none;
 }
 .task-complete-radio-buttons div {
   display: flex !important;
