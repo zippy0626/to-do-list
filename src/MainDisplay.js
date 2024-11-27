@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-
 /**
  * Generates HTML templates for different main display types in the app.
  *
@@ -9,6 +7,8 @@ import { format } from "date-fns";
  *   - "pastTasksProjects": Displays tasks and projects from the past.
  * @returns {string} A string containing the HTML for the requested display type.
  */
+
+import { format } from "date-fns";
 
 export default function getMainDisplayAs(displayType) {
   // upcomingTasks, todaysTasks, pastTasksProjects
@@ -98,6 +98,7 @@ export default function getMainDisplayAs(displayType) {
       </div>
     </div>
     `
+    return str;
   }
   if (displayType==="noUpcoming") {
     const str = `
