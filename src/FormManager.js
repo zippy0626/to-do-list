@@ -11,33 +11,33 @@ const FormManager = {
     const form = editor.querySelector("form");
     
     const taskTitleField = form.querySelector("#task-title")
-      taskTitleField.value = task._title;
+      taskTitleField.value = task.title;
     
     const isComplete = form.querySelector("#task-is-complete");
     const isNotComplete = form.querySelector("#task-is-not-complete");
-      task._isComplete ? 
+      task.isComplete ? 
         isComplete.checked = true : 
         isNotComplete.checked = true;
     
     const descriptionField = form.querySelector("#task-desc");
-      descriptionField.value = task._description;
+      descriptionField.value = task.description;
     
     const dueDateField = form.querySelector("#task-due-date");
-      let [month, day, year] = task._dueDate.split("-");
+      let [month, day, year] = task.dueDate.split("-");
       dueDateField.value = `${year}-${month}-${day}`;
 
     const priorityField = form.querySelector(".priority-radio-buttons-wrapper");
       const [low, medium, high, critical] = priorityField.querySelectorAll("input");
-      if (task._priority==="Low") {
+      if (task.priority==="Low") {
         low.checked = true;
       }
-      if (task._priority==="Medium") {
+      if (task.priority==="Medium") {
         medium.checked = true;
       }
-      if (task._priority==="High") {
+      if (task.priority==="High") {
         high.checked = true;
       }
-      if (task._priority==="Critical") {
+      if (task.priority==="Critical") {
         critical.checked = true;
       }
     
@@ -50,8 +50,8 @@ const FormManager = {
       }
 
     const projectLinkField = form.querySelector("#task-link-to-project");
-      task._projectTitle ?
-      projectLinkField.value = task._projectTitle : 
+      task.projectTitle ?
+      projectLinkField.value = task.projectTitle : 
       projectLinkField.placeholder = "No project linked"
   },
   

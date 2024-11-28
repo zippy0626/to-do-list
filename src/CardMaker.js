@@ -13,19 +13,19 @@ export default function makeCardFor(container, object) {
     const str = `
     <div class="card">
       <div class="card-title-wrapper">
-        <div class="card-title">${object._title}</div>
+        <div class="card-title">${object.title}</div>
         <div class="card-info-wrapper">
-          <div class="card-due-date">Due ${object._dueDate}</div>
+          <div class="card-due-date">Due ${object.dueDate}</div>
           <div class="card-complete-status">
-            ${object._isComplete? "Completed":"Not Complete"}
+            ${object.isComplete? "Completed":"Not Complete"}
           </div>
-          <div class="card-project${object._projectTitle? "": "hidden"}">
-            ${object._projectTitle? `From ${object._projectTitle}` : ""}
+          <div class="card-project${object.projectTitle? "": "hidden"}">
+            ${object.projectTitle? `From ${object.projectTitle}` : ""}
           </div>
         </div>
       </div>
-      <div class="card-priority ${object._priority==="Low"? "low" : ""}${object._priority==="Medium"? "medium" : ""}${object._priority==="High"? "high" : ""}${object._priority==="Critical"? "critical" : ""}">
-        ${object._priority}
+      <div class="card-priority ${object.priority==="Low"? "low" : ""}${object.priority==="Medium"? "medium" : ""}${object.priority==="High"? "high" : ""}${object.priority==="Critical"? "critical" : ""}">
+        ${object.priority}
       </div>
     </div>
     `
@@ -35,13 +35,24 @@ export default function makeCardFor(container, object) {
     const str = `
     <div class="project-item">
       <div class="project-desc">
-        <div class="project-title">${object._title}</div>
-        <div class="project-due-date">Due at ${object._dueDate}</div>
+        <div class="project-title">${object.title}</div>
+        <div class="project-due-date">Due at ${object.dueDate}</div>
       </div>
-      <div class="project-priority ${object._priority==="Low"? "low" : ""} ${object._priority==="Medium"? "medium" : ""}${object._priority==="High"? "high" : ""} ${object._priority==="Critical"? "critical" : ""}">
-        ${object._priority}
+      <div class="project-priority ${object.priority==="Low"? "low" : ""} ${object.priority==="Medium"? "medium" : ""}${object.priority==="High"? "high" : ""} ${object.priority==="Critical"? "critical" : ""}">
+        ${object.priority}
       </div>
     </div>
+    `
+    return str;
+  }
+
+  //this is for projects editor, not tasks
+  if (container==="relatedTasksContainer") {
+    const str = `
+    <label for="task-0" class="checkbox-item">
+      <input type="checkbox" id="task-0" name="task-0">
+      Task 0
+    </label>
     `
     return str;
   }
