@@ -103,8 +103,14 @@ export default function getEditorAs(editorType) {
             aria-placeholder="Project Title">
         </div>
 
-        <button type="submit" class="submit-button">
+        <button type="submit" class="submit-button form-button">
           Done
+        </button>
+        <button type="button" class="delete-button form-button hidden">
+          Delete
+        </button>
+        <button type="button" class="cancel-button form-button">
+          Cancel
         </button>
       </form>
     `
@@ -195,8 +201,14 @@ export default function getEditorAs(editorType) {
             aria-placeholder="Project Title">
         </div>
 
-        <button type="submit" class="submit-button">
+        <button type="submit" class="submit-button form-button">
           Done
+        </button>
+        <button type="button" class="delete-button form-button">
+          Delete
+        </button>
+        <button type="button" class="cancel-button form-button hidden">
+          Cancel
         </button>
       </form>
     `;
@@ -284,8 +296,14 @@ export default function getEditorAs(editorType) {
           </div>
         </div>
 
-        <button type="submit" class="submit-button">
+        <button type="submit" class="submit-button form-button">
           Done
+        </button>
+        <button type="button" class="delete-button form-button hidden">
+          Delete
+        </button>
+        <button type="button" class="cancel-button form-button">
+          Cancel
         </button>
       </form>
     `;
@@ -373,8 +391,14 @@ export default function getEditorAs(editorType) {
           </div>
         </div>
 
-        <button type="submit" class="submit-button">
+        <button type="submit" class="submit-button form-button">
           Done
+        </button>
+        <button type="button" class="delete-button form-button">
+          Delete
+        </button>
+        <button type="button" class="cancel-button form-button hidden">
+          Cancel
         </button>
       </form>
     `
