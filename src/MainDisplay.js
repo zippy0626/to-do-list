@@ -1,7 +1,7 @@
 /**
  * Generates and returns HTML strings based on the specified display type.
  *
- * @param {"todaysTasks" | "upcomingTasks" | "pastTasksProjects" | "noTodays" | "noUpcoming" | "noPastTasksProjects" } displayType - The type of display to generate. 
+ * @param {"todaysTasks" | "upcomingTasks" | "pastTasksProjects" | "noTodays" | "noUpcoming" | "noPastTasksProjects" | "searchTasksProjects"} displayType - The type of display to generate. 
  * Possible values:
  * - "todaysTasks": Displays today's tasks with today's date.
  * - "upcomingTasks": Displays upcoming tasks with today's date.
@@ -146,6 +146,48 @@ export default function getMainDisplayAs(displayType) {
           <div class="message">
             No past tasks/projects found.
           </div>
+        </div>
+      </div>
+    </div>
+    `;
+    return str;
+  }
+  if (displayType === "searchTasksProjects") {
+    const str = `
+    <div class="main-title-date-wrapper">
+      <h1 class="main-title">
+        Search Tasks/Projects
+      </h1>
+      <h2 class="main-date">
+        ${dateToday}
+      </h2>
+    </div>
+
+    <div class="card-container-wrapper">
+      <!-- load stuff here -->
+      <div class="card-container">
+
+      </div>
+    </div>
+    `;
+    return str;
+  }
+  if (displayType === "noSearchResults") {
+    const str = `
+    <div class="main-title-date-wrapper">
+      <h1 class="main-title">
+        Search Tasks/Projects
+      </h1>
+      <h2 class="main-date">
+        ${dateToday}
+      </h2>
+    </div>
+
+    <div class="card-container-wrapper">
+      <!-- load stuff here -->
+      <div class="card-container">
+        <div class="message-wrapper">
+          <div class="message">No Results Found.</div>
         </div>
       </div>
     </div>

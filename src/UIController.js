@@ -14,16 +14,57 @@ function getDaysFromMilliSeconds (milliseconds) {
 const Controller = {
   initialize() {
     //for main display, project container, editor, main-title-date-wrapper
-    
-    //show today's tasks (main display)
-    this.showTodayTasks();
-
-    //show default editor
     const editor = document.querySelector("#editor");
     editor.innerHTML = getEditorAs("default");
 
-    //show all projects
+    this.showTodayTasks();
     this.showAllProjects();
+    this.handleSearchBarInput();
+    this.handleTaskButtons();
+    this.handleProjectSortByButton();
+    this.handleClickTaskorProject();
+  },
+
+  handleSearchBarInput() {
+    const searchBar = document.querySelector('#search-bar');
+    searchBar.addEventListener('input', (e)=>{
+      let query = e.target.value;
+      this.handleSearchquery(query);
+    });
+  },
+
+  handleSearchquery(query) {
+    if (!query) {
+      this.showTodayTasks();
+      return;
+    }
+    const mainDisplay = document.querySelector('#main-display');
+      mainDisplay.innerHTML = getMainDisplayAs("searchTasksProjects");
+    
+    query = query.trim().toLowerCase();
+
+    let matchedItems = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      let object = Storage.getItem(Storage.getKey(i));
+
+      if (object.title.trim().toLowerCase().includes(query)) {
+        matchedItems.push(object);
+      }
+    };
+
+    if (!matchedItems.length) {
+      const mainDisplay = document.querySelector('#main-display');
+        mainDisplay.innerHTML = getMainDisplayAs("noSearchResults");
+      return;
+    };
+
+    const cardContainer = document.querySelector('.card-container');
+      cardContainer.innerHTML = "";
+
+    for (const match of matchedItems) {
+      const card = makeCardFor("cardContainer", match);
+        cardContainer.insertAdjacentHTML("beforeend", card)
+    };
   },
 
   handleTaskButtons() {
@@ -117,15 +158,6 @@ const Controller = {
   showTodayTasks() {
     let today = format(new Date(), "MM-dd-yyyy");
 
-    //handle no tasks
-    if (!localStorage.length) {
-      const mainDisplay = document.querySelector("#main-display");
-        mainDisplay.innerHTML = getMainDisplayAs("noTodays");
-      const editor = document.querySelector('#editor');
-        editor.innerHTML = getEditorAs("default");
-      return;
-    };
-
     //handle if there is tasks
     const mainDisplay = document.querySelector("#main-display");
       mainDisplay.innerHTML = getMainDisplayAs("todaysTasks");
@@ -150,11 +182,15 @@ const Controller = {
       if (
         (!task.isProject && !task.isComplete) && 
         //Filters out tasks if it's more than 5 days ahead
-        (getDaysFromMilliSeconds(new Date(task.dueDate) - new Date(today)) < 6)
+        (getDaysFromMilliSeconds(new Date(task.dueDate) - new Date(today)) < 8)
       ) {
         const taskCard = makeCardFor("cardContainer", task);
         cardContainer.insertAdjacentHTML("beforeend", taskCard);
       }
+    };
+
+    if (!cardContainer.innerHTML) {
+      mainDisplay.innerHTML = getMainDisplayAs("noTodays")
     };
   },
 
@@ -182,7 +218,7 @@ const Controller = {
 
     for (const task of allTasks) {
       if (
-        (task.createDate === today && task.dueDate > today) &&
+        (task.dueDate > today) &&
         !task.isComplete && 
         !task.isProject
       ) {
@@ -196,6 +232,7 @@ const Controller = {
     }
   },
 
+  //differentiate between task or project?
   showPastTasksorProjects() {
     const mainDisplay = document.querySelector('#main-display');
       mainDisplay.innerHTML = getMainDisplayAs("pastTasksProjects");

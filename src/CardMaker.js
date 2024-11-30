@@ -19,9 +19,14 @@ export default function makeCardFor(container, object) {
           <div class="card-complete-status">
             ${object.isComplete? "Completed":"Not Complete"}
           </div>
-          <div class="card-project${object.projectTitle? "": "hidden"}">
+          <div class="card-project-link${object.projectTitle? "": " hidden"}">
             ${object.projectTitle? `From ${object.projectTitle}` : ""}
           </div>
+          ${
+            object.isProject?
+            `<div class="card-is-project">Project</div>`:
+            ""
+          }
         </div>
       </div>
       <div class="card-priority ${object.priority==="Low"? "low" : ""}${object.priority==="Medium"? "medium" : ""}${object.priority==="High"? "high" : ""}${object.priority==="Critical"? "critical" : ""}">
