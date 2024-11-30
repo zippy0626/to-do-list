@@ -48,10 +48,12 @@ export default function makeCardFor(container, object) {
 
   //this is for projects editor, not tasks
   if (container==="relatedTasksContainer") {
+    //need to have no space in CSS class
+    let tempName = object.name.replace(/\s+/g, "-");
     const str = `
-    <label for="task-0" class="checkbox-item">
-      <input type="checkbox" id="task-0" name="task-0">
-      Task 0
+    <label for="${tempName}" class="checkbox-item">
+      <input type="checkbox" id="${tempName}" name="${tempName}">
+      ${object.name}
     </label>
     `
     return str;
