@@ -44,7 +44,7 @@ export default function getEditorAs(editorType) {
               <label for="task-is-complete" class="yes">Yes</label>
             </div>
             <div>
-              <input type="radio" id="task-is-not-complete" name="isComplete" value="false" required>
+              <input type="radio" id="task-is-not-complete" name="isComplete" value="false" required checked>
               <label for="task-is-not-complete" class="no">No</label>
             </div>
           </div>
@@ -240,7 +240,7 @@ export default function getEditorAs(editorType) {
                 <label for="task-is-complete" class="yes">Yes</label>
               </div>
               <div>
-                <input type="radio" id="task-is-not-complete" name="isComplete" value="false" required>
+                <input type="radio" id="task-is-not-complete" name="isComplete" value="false" required checked>
                 <label for="task-is-not-complete" class="no">No</label>
               </div>
             </div>
@@ -294,6 +294,7 @@ export default function getEditorAs(editorType) {
           <div class="group-related-tasks-wrapper">
 
           </div>
+          <div class="message-small">A checked task means complete.</div>
         </div>
 
         <button type="submit" class="submit-button form-button">
@@ -389,6 +390,7 @@ export default function getEditorAs(editorType) {
           <div class="group-related-tasks-wrapper">
 
           </div>
+          <div class="message-small">A checked task means complete.</div>
         </div>
 
         <button type="submit" class="submit-button form-button">
