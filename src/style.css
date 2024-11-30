@@ -128,6 +128,12 @@ h3 {
   gap: 5px;
 
   padding-left: var(--innerMenuLeftBoxPadding);
+
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 .task-btn-container button {
   width: 98%;
@@ -143,7 +149,7 @@ h3 {
   border: none;
   border-radius: var(--borderRadiusPrimary);
 
-  background-color: rgba(0, 119, 255, 0.2);
+  background-color: hsl(210, 100%, 90%);
   
   cursor: pointer;
 }
@@ -151,11 +157,47 @@ h3 {
   margin: 0 6px 0 3px;
 }
 .task-btn-container button:hover {
-  background-color: rgba(0, 119, 255, 0.3);
+  background-color: hsl(210, 100%, 87%);
 }
 .task-btn-container button:active {
-  background-color: rgba(0, 119, 255, 0.35);
+  background-color: hsl(210, 100%, 85%);
 }
+/* add new task/project dropdown */
+.task-btn-container button:first-of-type {
+  z-index: 3;
+}
+.task-create-new-options {
+  z-index: 2;
+  position: absolute;
+  top: 28px;
+  left: 8px;
+
+  font-size: 15px;
+  background-color: hsl(210, 100%, 95%);
+  /* box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.3); */
+  border: .5px hsl(210, 100%, 80%) solid;
+  border-top: none;
+}
+.task-create-new-options li {
+  list-style: none;
+
+  display: flex;
+  align-items: center;
+  text-align: left;
+
+  height: 28px;
+  padding: 5px;
+
+  cursor: pointer;
+  user-select: none;
+}
+.task-create-new-options li:hover {
+  background-color: hsl(210, 100%, 92%);
+}
+.task-create-new-options li:active {
+  background-color: hsl(210, 100%, 90%);
+}
+
 
 /* projects section */
 #projects {
@@ -344,6 +386,7 @@ button {
   flex-shrink: 0;
 
   padding: 0 8px 0 8px;
+  margin-left: 3px;
 
   border-radius: var(--borderRadiusPrimary);
   background-color: whitesmoke;
@@ -476,27 +519,56 @@ input[type=radio] {
   justify-content: space-around;
 }
 
-.submit-button {
+/* form buttons */
+.form-button {
   width: fit-content;
   padding: 4px 8px 4px 8px;
-
-  background-color: rgb(61, 115, 223);
-  color: white;
-  border-radius: var(--borderRadiusPrimary);
-  border: 1px rgb(0, 0, 163) solid;
 
   font-weight: bold;
   font-size: 14px;
 
   cursor: pointer;
   user-select: none;
+
+  margin-bottom: 5px;
+}
+.submit-button {
+  background-color: hsl(220, 72%, 60%);
+  color: white;
+  border-radius: var(--borderRadiusPrimary);
+  border: 1px rgba(37, 37, 254, 0.503) solid;
 }
 .submit-button:hover {
-  background-color: rgb(70, 120, 238);
+  background-color: hsl(222, 83%, 65%);
 }
 .submit-button:active {
-  background-color: rgb(50, 105, 213);
+  background-color: hsl(220, 66%, 55%);
 }
+.delete-button {
+  background-color: hsl(8, 72%, 55%);
+  color: white;
+  border-radius: var(--borderRadiusPrimary);
+  border: 1px rgb(163, 0, 0) solid;
+}
+.delete-button:hover{
+  background-color: hsl(8, 72%, 60%);
+}
+.delete-button:active{
+  background-color: hsl(8, 72%, 50%);
+}
+.cancel-button {
+  background-color: hsl(8, 72%, 55%);
+  color: white;
+  border-radius: var(--borderRadiusPrimary);
+  border: 1px rgb(163, 0, 0) solid;
+}
+.cancel-button:hover{
+  background-color: hsl(8, 72%, 60%);
+}
+.cancel-button:active{
+  background-color: hsl(8, 72%, 50%);
+}
+
 .error-msg {
   color: red;
   font-size: 12px;
@@ -525,7 +597,7 @@ input[type="checkbox"] {
   all: revert !important;
   width: 12px !important;
   height: 12px !important;
-  margin: 4px 8px 5px 3px !important;
+  margin: 0 5px 0 8px !important;
 }
 .group-related-tasks-wrapper {
   overflow: auto;
@@ -534,7 +606,8 @@ input[type="checkbox"] {
   
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
+  padding: 3px;
 
   outline: var(--borderPrimary);
   border-radius: var(--borderRadiusPrimary);
@@ -542,8 +615,9 @@ input[type="checkbox"] {
 #group-related-tasks .checkbox-item {
   display: flex;
   flex-direction: row;
+  align-items: center;
 
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 0;
 
   cursor: pointer;
@@ -553,7 +627,7 @@ input[type="checkbox"] {
   background-color: whitesmoke;
 }
 
-/* delete btn + Complete? Options */
+/* complete option */
 .task-complete-radio-buttons {
   display: flex !important;
   flex-direction: row !important;
@@ -576,3 +650,4 @@ input[type="checkbox"] {
   flex-direction: row !important;
   margin: 0 !important;
 }
+
