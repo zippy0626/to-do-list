@@ -18,7 +18,7 @@ Topic: Stuff Learned...
 - [Sources](#sources)
 
 ## Preview Image
-<img src="" alt="preview" width="800">
+<img src="./src/assets/app-preview.png" alt="preview" width="850">
 
 
 ## Overview
