@@ -34,10 +34,10 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div>
-          <label>
+          <p class="input-label">
             Completed?
             <span aria-label="Required"><strong>*</strong></span>
-          </label>
+          </p>
           <div class="radio-buttons-wrapper task-complete-radio-buttons">
             <div>
               <input type="radio" id="task-is-complete" name="isComplete" value="true" required>
@@ -66,10 +66,10 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div id="priority-radio-buttons">
-          <label>
+          <p class="input-label">
             Priority
             <span aria-label="Required"><strong>*</strong></span>
-          </label>
+          </p>
 
           <div class="priority-radio-buttons-wrapper">
           <div>
@@ -132,10 +132,10 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div>
-          <label>
+          <p class="input-label">
             Completed?
             <span aria-label="Required"><strong>*</strong></span>
-          </label>
+          </p>
           <div class="radio-buttons-wrapper task-complete-radio-buttons">
             <div>
               <input type="radio" id="task-is-complete" name="isComplete" value="true" required>
@@ -164,10 +164,10 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div id="priority-radio-buttons">
-          <label>
+          <p class="input-label">
             Priority
             <span aria-label="Required"><strong>*</strong></span>
-          </label>
+          </p>
 
           <div class="priority-radio-buttons-wrapper">
           <div>
@@ -230,10 +230,10 @@ export default function getEditorAs(editorType) {
         </div>
 
           <div>
-            <label>
+            <p class="input-label">
               Completed?
               <span aria-label="Required"><strong>*</strong></span>
-            </label>
+            </p>
             <div class="radio-buttons-wrapper task-complete-radio-buttons">
               <div>
                 <input type="radio" id="task-is-complete" name="isComplete" value="true" required>
@@ -262,10 +262,10 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div id="priority-radio-buttons">
-          <label>
+          <p class="input-label">
             Priority
             <span aria-label="Required"><strong>*</strong></span>
-          </label>
+          </p>
 
           <div class="priority-radio-buttons-wrapper">
             <div>
@@ -288,7 +288,9 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div id="group-related-tasks">
-          <label>Group Related Tasks</label>
+          <p class="input-label">
+            Group Related Tasks
+          </p>
 
           <!-- dynamically load all recent tasks here -->
           <div class="group-related-tasks-wrapper">
@@ -326,10 +328,10 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div>
-          <label>
+          <p class="input-label">
             Completed?
             <span aria-label="Required"><strong>*</strong></span>
-          </label>
+          </p>
           <div class="radio-buttons-wrapper task-complete-radio-buttons">
             <div>
               <input type="radio" id="task-is-complete" name="isComplete" value="true" required>
@@ -358,10 +360,10 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div id="priority-radio-buttons">
-          <label>
+          <p class="input-label">
             Priority
             <span aria-label="Required"><strong>*</strong></span>
-          </label>
+          </p>
 
           <div class="priority-radio-buttons-wrapper">
             <div>
@@ -384,7 +386,9 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div id="group-related-tasks">
-          <label>Group Related Tasks</label>
+          <p class="input-label">
+            Group Related Tasks
+          </p>
           
           <!-- dynamically load all recent tasks here -->
           <div class="group-related-tasks-wrapper">
