@@ -3,7 +3,7 @@ import getMainDisplayAs from "./MainDisplay.js";
 import getEditorAs from "./Editor.js";
 import makeCardFor from "./CardMaker.js";
 import FormManager from "./FormManager.js";
-import { format } from "date-fns";
+import { format, getDay } from "date-fns";
 
 function getDaysFromMilliSeconds (milliseconds) {
   let seconds = milliseconds / 1000;
@@ -20,11 +20,13 @@ const Controller = {
     this.showTodayTasks();
     this.showAllProjects();
     this.handleSearchBarInput();
+
     this.handleTaskButtons();
     this.handleProjectSortByButton();
     this.handleClickTaskorProject();
   },
 
+  //Handle Searches
   handleSearchBarInput() {
     const searchBar = document.querySelector('#search-bar');
     searchBar.addEventListener('input', (e)=>{
@@ -83,15 +85,17 @@ const Controller = {
         //Pass in a Function (Arrow Fn) into this method
         //The function is called inside this method with variable param
         //The variable is processed inside arrow function
-        this.handleAddTaskOrProjectOption((textValue) => {
+        this.handleTaskProjectDropdown((textValue) => {
           const editor = document.querySelector("#editor");
 
           if (textValue === "Add New Task") {
             createOptions.classList.add("hidden");
             editor.innerHTML = getEditorAs("addNewTask");
+            FormManager
           } else if (textValue === "Add New Project") {
             createOptions.classList.add("hidden");
             editor.innerHTML = getEditorAs("addNewProject");
+            FormManager
           }
         });
         return;
@@ -117,8 +121,7 @@ const Controller = {
     });
   },
 
-  handleAddTaskOrProjectOption(callbackFn) {
-    //passing in a function into this method
+  handleTaskProjectDropdown(callbackFn) { //passing in a callback into this method
     const taskOrProjectOption = document.querySelector(
       ".task-create-new-options"
     );
@@ -166,31 +169,24 @@ const Controller = {
     const editor = document.querySelector("#editor");
       editor.innerHTML = getEditorAs("default");
 
-    //Sort all tasks
-    let allTasks = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      let task = Storage.getItem(Storage.getKey(i));
-      allTasks.push(task);
-    };
-    allTasks = allTasks.sort((taskA, taskB) => {
-      let dateA = new Date(taskA.dueDate);
-      let dateB = new Date(taskB.dueDate);
-      return dateA - dateB
-    });
+    //Sort all tasks using Chaining Array Methods
+    let allObjects = Object.keys(localStorage)
+      .map((key)=>Storage.getItem(key))
+      .sort((objectA, objectB)=> new Date(objectA.dueDate) - new Date(objectB.dueDate));
 
-    for (const task of allTasks) {
-      if (
-        (!task.isProject && !task.isComplete) && 
-        //Filters out tasks if it's more than 5 days ahead
-        (getDaysFromMilliSeconds(new Date(task.dueDate) - new Date(today)) < 8)
-      ) {
-        const taskCard = makeCardFor("cardContainer", task);
+    allObjects
+      .filter((object) =>
+        (!object.isComplete && !object.isProject) && 
+        (getDaysFromMilliSeconds(new Date(object.dueDate) - new Date(today)) < 8) 
+      )
+      .forEach((object) => {
+        const taskCard = makeCardFor("cardContainer", object);
         cardContainer.insertAdjacentHTML("beforeend", taskCard);
-      }
-    };
+      });
+    //
 
     if (!cardContainer.innerHTML) {
-      mainDisplay.innerHTML = getMainDisplayAs("noTodays")
+      mainDisplay.innerHTML = getMainDisplayAs("noTodays");
     };
   },
 
@@ -204,71 +200,60 @@ const Controller = {
     const editor = document.querySelector("#editor");
       editor.innerHTML = getEditorAs("default");
 
-    // Sort upcoming tasks
-    let allTasks = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      let task = Storage.getItem(Storage.getKey(i));
-      allTasks.push(task);
-    };
-    allTasks = allTasks.sort((taskA, taskB) => {
-      let dateA = new Date(taskA.dueDate);
-      let dateB = new Date(taskB.dueDate);
-      return dateA - dateB
-    });
+    //Sort all upcomings using Chaining Array Methods
+    let allObjects = Object.keys(localStorage)
+      .map((key)=>Storage.getItem(key))
+      .sort((objectA, objectB)=> new Date(objectA.dueDate) - new Date(objectB.dueDate));
 
-    for (const task of allTasks) {
-      if (
-        (task.dueDate > today) &&
-        !task.isComplete && 
-        !task.isProject
-      ) {
-        const taskCard = makeCardFor("cardContainer", task);
+    allObjects
+      .filter((object) =>
+        (object.dueDate > today) &&
+        (!object.isComplete && !object.isProject)
+      )
+      .forEach((object) => {
+        const taskCard = makeCardFor("cardContainer", object);
         cardContainer.insertAdjacentHTML("beforeend", taskCard);
-      }
-    }
+      });
+    //
 
     if (!cardContainer.innerHTML) {
       mainDisplay.innerHTML = getMainDisplayAs("noUpcoming");
     }
   },
 
-  //differentiate between task or project?
+
   showPastTasksorProjects() {
     const mainDisplay = document.querySelector('#main-display');
       mainDisplay.innerHTML = getMainDisplayAs("pastTasksProjects");
     const cardContainer = document.querySelector('.card-container');
     
-    let allObjects = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const object = Storage.getItem(Storage.getKey(i));
-      allObjects.push(object);
-    };
+    //Sort using Chaining Array Methods
+    let allObjects = Object.keys(localStorage)
+      .map((key)=>Storage.getItem(key))
+      .sort((objectA, objectB)=> new Date(objectA.dueDate) - new Date(objectB.dueDate));
 
-    allObjects = allObjects.sort((objA, objB) => {
-      let dateA = new Date(objA.dueDate);
-      let dateB = new Date(objB.dueDate);
-      return dateB - dateA
-    });
-
-    for (const object of allObjects) {
-      if (object.isComplete) {
-        const card = makeCardFor("cardContainer", object);
-        cardContainer.insertAdjacentHTML("beforeend", card);
-      };
-    };
+    allObjects
+      .filter((object) =>
+        object.isComplete
+      )
+      .forEach((object) => {
+        const projectCard = makeCardFor("cardContainer", object);
+        cardContainer.insertAdjacentHTML("beforeend", projectCard);
+      });
+    //
 
     if (!cardContainer.innerHTML) {
       mainDisplay.innerHTML = getMainDisplayAs("noPastTasksProjects");
     };
   },
 
-  //Work on this
   showAllProjects() {
     const noProjectsFound = `
     <div class="message-wrapper">
       <div class="message">No Projects Found.</div>
     </div>
-    `
+    `;
+
     if (!localStorage.length) {
       const projectContainer = document.querySelector('.project-container');
       projectContainer.innerHTML = noProjectsFound;
@@ -276,7 +261,7 @@ const Controller = {
     }
 
     const projectContainer = document.querySelector(".project-container");
-    projectContainer.innerHTML = "";
+      projectContainer.innerHTML = "";
 
     for (let i = 0; i < localStorage.length; i++) {
       let project = Storage.getItem(Storage.getKey(i));
