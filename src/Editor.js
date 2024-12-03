@@ -20,7 +20,7 @@ export default function getEditorAs(editorType) {
   };
 
   if (editorType==="addNewTask") {
-    const str = `
+    const addNewTask = `
       <h1 class="editor-title">Add New Task</h1>
       <form>
         <div>
@@ -92,8 +92,8 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div>
-          <label for="task-checklist">Checklist</label>
-          <textarea id="task-checklist" name="checkList" aria-placeholder="Additional Subtasks"
+          <label for="task-subtasks">Subtasks</label>
+          <textarea id="task-subtasks" name="checkList" aria-placeholder="Additional Subtasks"
             placeholder="Additional Subtasks. Enter as a comma seperated list. "></textarea>
         </div>
 
@@ -114,11 +114,11 @@ export default function getEditorAs(editorType) {
         </button>
       </form>
     `
-    return str;
+    return addNewTask;
   };
 
   if (editorType==="viewEditTask") {
-    const str = `
+    const viewEditTask = `
       <h1 class="editor-title">View/Edit Task</h1>
       <form>
         <div>
@@ -189,10 +189,15 @@ export default function getEditorAs(editorType) {
         </div>
         </div>
 
-        <div>
-          <label for="task-checklist">Checklist</label>
-          <textarea id="task-checklist" name="checkList" aria-placeholder="Additional Subtasks"
-            placeholder="Additional Subtasks. Enter as a comma seperated list. "></textarea>
+        <div id="subtasks">
+          <p class="input-label">
+            Subtasks
+          </p>
+          
+          <div class="subtasks-wrapper">
+
+          </div>
+          <div class="message-small">A checked task means complete.</div>
         </div>
 
         <div>
@@ -212,13 +217,13 @@ export default function getEditorAs(editorType) {
         </button>
       </form>
     `;
-    return str;
+    return viewEditTask;
   }
 
   if (editorType==="addNewProject") {
-    const str = `
+    const addNewProject = `
       <h1 class="editor-title">Add New Project</h1>
-      <form>
+      <form >
         <div>
           <label for="task-title">
             Project Title
@@ -287,16 +292,10 @@ export default function getEditorAs(editorType) {
           </div>
         </div>
 
-        <div id="group-related-tasks">
-          <p class="input-label">
-            Group Related Tasks
-          </p>
-
-          <!-- dynamically load all recent tasks here -->
-          <div class="group-related-tasks-wrapper">
-
-          </div>
-          <div class="message-small">A checked task means complete.</div>
+        <div>
+          <label for="task-subtasks">Subtasks</label>
+          <textarea id="task-subtasks" name="checkList" aria-placeholder="Additional Subtasks"
+            placeholder="Additional Subtasks. Enter as a comma seperated list. "></textarea>
         </div>
 
         <button type="submit" class="submit-button form-button">
@@ -310,13 +309,13 @@ export default function getEditorAs(editorType) {
         </button>
       </form>
     `;
-    return str;
+    return addNewProject;
   }
 
   if (editorType==="viewEditProject") {
-    const str = `
+    const viewEditProject = `
       <h1 class="editor-title">View/Edit Project</h1>
-      <form>
+      <form >
         <div>
           <label for="task-title">
             Project Title
@@ -408,6 +407,6 @@ export default function getEditorAs(editorType) {
         </button>
       </form>
     `
-    return str;
+    return viewEditProject;
   }
 }
