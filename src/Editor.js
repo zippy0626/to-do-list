@@ -384,13 +384,12 @@ export default function getEditorAs(editorType) {
           </div>
         </div>
 
-        <div id="group-related-tasks">
+        <div id="subtasks">
           <p class="input-label">
-            Group Related Tasks
+            Subtasks
           </p>
           
-          <!-- dynamically load all recent tasks here -->
-          <div class="group-related-tasks-wrapper">
+          <div class="subtasks-wrapper">
 
           </div>
           <div class="message-small">A checked task means complete.</div>
