@@ -39,11 +39,17 @@ export default function makeCardFor(container, object) {
   if (container==="projectContainer") {
     const str = `
     <div class="project-item">
-      <div class="project-desc">
+      <div>
         <div class="project-title">${object.title}</div>
-        <div class="project-due-date">Due at ${object.dueDate}</div>
+        <div class="project-info-wrapper">
+          <div class="project-due-date">Due ${object.dueDate}</div>
+          <div class="project-is-complete">
+            ${object.isComplete? "Completed":"Not Complete"}
+          </div>
+        </div>
       </div>
-      <div class="project-priority ${object.priority==="Low"? "low" : ""} ${object.priority==="Medium"? "medium" : ""}${object.priority==="High"? "high" : ""} ${object.priority==="Critical"? "critical" : ""}">
+
+      <div class="project-priority ${object.priority==="Low"? "low" : ""}${object.priority==="Medium"? "medium" : ""}${object.priority==="High"? "high" : ""}${object.priority==="Critical"? "critical" : ""} ">
         ${object.priority}
       </div>
     </div>
@@ -51,8 +57,7 @@ export default function makeCardFor(container, object) {
     return str;
   }
 
-  //this is for projects editor, not tasks
-  if (container==="relatedTasksContainer") {
+  if (container==="subtasksWrapper") {
     //need to have no space in CSS class
     let tempName = object.name.replace(/\s+/g, "-");
     const str = `
