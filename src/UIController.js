@@ -19,11 +19,14 @@ const Controller = {
 
     this.showTodayTasks();
     this.showAllProjects();
-    this.handleSearchBarInput();
 
+    //event listeners
+    this.handleSearchBarInput();
     this.handleTaskButtons();
     this.handleProjectSortByButton();
     this.handleClickTaskorProject();
+    this.handleEditorFormButtons();
+    this.handleModalButtons();
   },
 
   //Handle Searches
@@ -91,11 +94,12 @@ const Controller = {
           if (textValue === "Add New Task") {
             createOptions.classList.add("hidden");
             editor.innerHTML = getEditorAs("addNewTask");
-            FormManager
-          } else if (textValue === "Add New Project") {
+            return;
+          } 
+          if (textValue === "Add New Project") {
             createOptions.classList.add("hidden");
             editor.innerHTML = getEditorAs("addNewProject");
-            FormManager
+            return;
           }
         });
         return;
@@ -132,30 +136,68 @@ const Controller = {
   },
 
   handleClickTaskorProject() {
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".card") && !e.target.closest(".project-item")) {
-        return;
-      }
+    const projectContainer = document.querySelector('.project-container');
+    const cardContainer = document.querySelector('.card-container');
+    
+    if (!projectContainer.hasEventListener) {
+      projectContainer.hasEventListener = true;
+      projectContainer.addEventListener("click", (e) => {
+        if (
+          (!e.target.closest(".card") && !e.target.closest(".project-item"))
+        ) {
+          return;
+        }
+  
+        //Get element, see if it's a card or project
+        const ele = e.target.closest(".card")? 
+          e.target.closest(".card"): 
+          e.target.closest(".project-item");
+  
+        //Getting card title or project title
+        let title;
+        ele.classList.value === "card"? 
+          (title = ele.querySelector(".card-title").textContent): 
+          (title = ele.querySelector(".project-title").textContent);
+  
+        //Check if task or project in Storage, then give it to Form Manager
+        const object = Storage.getItem(title);
+        if (!object.isProject) {
+          FormManager.handleClicktoShowTaskAsForm(object);
+        } else {
+          FormManager.handleClicktoShowProjectAsForm(object);
+        }
+      });
+    };
 
-      //Get element, see if it's a card or project
-      const ele = e.target.closest(".card")? 
-        e.target.closest(".card"): 
-        e.target.closest(".project-item");
-
-      //Getting card title or project title
-      let title;
-      ele.classList.value === "card"? 
-        (title = ele.querySelector(".card-title").textContent): 
-        (title = ele.querySelector(".project-title").textContent);
-
-      //Check if task or project in Storage, then give it to Form Manager
-      const object = Storage.getItem(title);
-      if (!object.isProject) {
-        FormManager.updateTaskEditorForm(object);
-      } else {
-        FormManager.updateProjectEditorForm(object);
-      }
-    });
+    if (!cardContainer.hasEventListener) {
+      cardContainer.hasEventListener = true;
+      cardContainer.addEventListener("click", (e) => {
+        if (
+          (!e.target.closest(".card") && !e.target.closest(".project-item"))
+        ) {
+          return;
+        }
+  
+        //Get element, see if it's a card or project
+        const ele = e.target.closest(".card")? 
+          e.target.closest(".card"): 
+          e.target.closest(".project-item");
+  
+        //Getting card title or project title
+        let title;
+        ele.classList.value === "card"? 
+          (title = ele.querySelector(".card-title").textContent): 
+          (title = ele.querySelector(".project-title").textContent);
+  
+        //Check if task or project in Storage, then give it to Form Manager
+        const object = Storage.getItem(title);
+        if (!object.isProject) {
+          FormManager.handleClicktoShowTaskAsForm(object);
+        } else {
+          FormManager.handleClicktoShowProjectAsForm(object);
+        }
+      });
+    }
   },
 
   showTodayTasks() {
@@ -177,13 +219,17 @@ const Controller = {
     allObjects
       .filter((object) =>
         (!object.isComplete && !object.isProject) && 
-        (getDaysFromMilliSeconds(new Date(object.dueDate) - new Date(today)) < 8) 
+        (getDaysFromMilliSeconds(new Date(object.dueDate) - new Date(today)) < 6) 
       )
       .forEach((object) => {
         const taskCard = makeCardFor("cardContainer", object);
         cardContainer.insertAdjacentHTML("beforeend", taskCard);
       });
     //
+
+    //since this method creates a new instance of the Displays
+    //we need to re initialize the event listener
+    this.handleClickTaskorProject();
 
     if (!cardContainer.innerHTML) {
       mainDisplay.innerHTML = getMainDisplayAs("noTodays");
@@ -208,13 +254,18 @@ const Controller = {
     allObjects
       .filter((object) =>
         (object.dueDate > today) &&
-        (!object.isComplete && !object.isProject)
+        (!object.isComplete && !object.isProject) &&
+        (getDaysFromMilliSeconds(new Date(object.dueDate) - new Date(today)) > 6) 
       )
       .forEach((object) => {
         const taskCard = makeCardFor("cardContainer", object);
         cardContainer.insertAdjacentHTML("beforeend", taskCard);
       });
     //
+
+    //since this method creates a new instance of the Displays
+    //we need to re initialize the event listener
+    this.handleClickTaskorProject();
 
     if (!cardContainer.innerHTML) {
       mainDisplay.innerHTML = getMainDisplayAs("noUpcoming");
@@ -241,6 +292,10 @@ const Controller = {
         cardContainer.insertAdjacentHTML("beforeend", projectCard);
       });
     //
+
+    //since this method creates a new instance of the Displays
+    //we need to re initialize the event listener
+    this.handleClickTaskorProject();
 
     if (!cardContainer.innerHTML) {
       mainDisplay.innerHTML = getMainDisplayAs("noPastTasksProjects");
@@ -271,6 +326,10 @@ const Controller = {
         projectContainer.insertAdjacentHTML("beforeend", projectCard);
       }
     }
+
+    //since this method creates a new instance of the Displays
+    //we need to re initialize the event listener
+    this.handleClickTaskorProject();
 
     if (!projectContainer.innerHTML) {
       projectContainer.innerHTML = noProjectsFound;
@@ -312,6 +371,92 @@ const Controller = {
       if (project && project.isProject) {
       }
     }
+  },
+
+  handleEditorFormButtons() {
+    const editor = document.querySelector('#editor');
+
+    if (!editor.hasEventListener) {
+      //custom property
+      editor.hasEventListener = true;
+
+      editor.addEventListener('click', (e)=>{
+  
+        const targetClassList = e.target.classList;
+        const editorTitle = document.querySelector('.editor-title').textContent;
+        
+        //handle not form btn
+        if (!targetClassList.contains("form-button")) return;
+  
+        //prevent submit
+        // if (targetClassList.contains("submit-button")) e.preventDefault();
+
+        //handle cancel
+        if (targetClassList.contains("cancel-button")) {
+          editor.innerHTML = getEditorAs("default");
+          return;
+        };
+  
+        //handle delete
+        if (targetClassList.contains("delete-button")) {
+          this.toggleModalandOverlay();
+          return;
+        };
+  
+        //handle add new task/project DONE button
+        if (
+          targetClassList.contains("submit-button") &&
+          (editorTitle === "Add New Task" || editorTitle === "Add New Project")
+        ) {
+          const editor = document.querySelector('#editor');
+          const formTitle = editor.querySelector('.editor-title').textContent;
+          const form = editor.querySelector('form');
+          
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+        
+          FormManager.handleAddNewItem(formTitle, form);
+          return;
+        }
+
+        //handle view to edit task Done btn
+
+
+        //handle view to edit project Done btn
+
+      });
+    }
+  },
+
+  toggleModalandOverlay() {
+    const modal = document.querySelector('.modal');
+    const overlay = document.querySelector('.overlay');
+      modal.classList.toggle("hidden");
+      overlay.classList.toggle("hidden");
+  },
+
+  handleModalButtons() {
+    const yesModalBtn = document.querySelector('.modal-yes-button');
+    const noModalBtn = document.querySelector('.modal-no-button');
+    const overlay = document.querySelector('.overlay');
+
+    noModalBtn.addEventListener('click', ()=>{
+      this.toggleModalandOverlay();
+    });
+    overlay.addEventListener('click', ()=>{
+      this.toggleModalandOverlay()
+    });
+    yesModalBtn.addEventListener('click', ()=>{
+      const itemTitle = document.querySelector('#task-title').value;
+      const item = Storage.getItem(itemTitle);
+      FormManager.handleDelete(item);
+      this.toggleModalandOverlay();
+      //refresh
+      this.showTodayTasks();
+      this.showAllProjects();
+    });
   },
 
 };
