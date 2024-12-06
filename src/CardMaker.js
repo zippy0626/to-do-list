@@ -59,12 +59,9 @@ export default function makeCardFor(container, object) {
 
   if (container==="subtasksWrapper") {
     //need to have no space in CSS class
-    let tempName = object.name.replace(/\s+/g, "-");
+    let tempName = object.name.replace(/[^\w\s]|_/g, "").replace(/\s+/g, "-");
     const str = `
-    <label for="${tempName}" class="checkbox-item">
-      <input type="checkbox" id="${tempName}" name="${tempName}">
-      ${object.name}
-    </label>
+    <label for="${tempName}" class="checkbox-item"><input type="checkbox" id="${tempName}" name="${tempName}">${object.name}</label>
     `
     return str;
   }
