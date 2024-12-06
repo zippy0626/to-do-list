@@ -23,9 +23,7 @@ export default function getMainDisplayAs(displayType) {
   if (displayType==="todaysTasks") {
     const str = `
     <div class="main-title-date-wrapper">
-      <h1 class="main-title">
-        Today's Tasks
-      </h1>
+      <h1 class="main-title">Today's Tasks</h1>
       <h2 class="main-date">
         ${dateToday}
       </h2>
@@ -43,9 +41,7 @@ export default function getMainDisplayAs(displayType) {
   if (displayType==="upcomingTasks") {
     const str = `
       <div class="main-title-date-wrapper">
-      <h1 class="main-title">
-        Upcoming Tasks
-      </h1>
+      <h1 class="main-title">Upcoming Tasks</h1>
       <h2 class="main-date">
         ${dateToday}
       </h2>
@@ -63,9 +59,7 @@ export default function getMainDisplayAs(displayType) {
   if (displayType==="pastTasksProjects") {
     const str = `
       <div class="main-title-date-wrapper">
-      <h1 class="main-title">
-        Past Tasks/Projects
-      </h1>
+      <h1 class="main-title">Past Tasks/Projects</h1>
       <h2 class="main-date">
         ${dateToday}
       </h2>
@@ -83,9 +77,7 @@ export default function getMainDisplayAs(displayType) {
   if (displayType==="noTodays") {
     const str = `
     <div class="main-title-date-wrapper">
-      <h1 class="main-title">
-        Today's Tasks
-      </h1>
+      <h1 class="main-title">Today's Tasks</h1>
       <h2 class="main-date">
         ${dateToday}
       </h2>
@@ -107,9 +99,7 @@ export default function getMainDisplayAs(displayType) {
   if (displayType==="noUpcoming") {
     const str = `
       <div class="main-title-date-wrapper">
-      <h1 class="main-title">
-        Upcoming Tasks
-      </h1>
+      <h1 class="main-title">Upcoming Tasks</h1>
       <h2 class="main-date">
         ${dateToday}
       </h2>
@@ -131,9 +121,7 @@ export default function getMainDisplayAs(displayType) {
   if (displayType === "noPastTasksProjects") {
     const str = `
       <div class="main-title-date-wrapper">
-      <h1 class="main-title">
-        Past Tasks/Projects
-      </h1>
+      <h1 class="main-title">Past Tasks/Projects</h1>
       <h2 class="main-date">
         ${dateToday}
       </h2>
@@ -155,9 +143,7 @@ export default function getMainDisplayAs(displayType) {
   if (displayType === "searchTasksProjects") {
     const str = `
     <div class="main-title-date-wrapper">
-      <h1 class="main-title">
-        Search Tasks/Projects
-      </h1>
+      <h1 class="main-title">Search Tasks/Projects</h1>
       <h2 class="main-date">
         ${dateToday}
       </h2>
@@ -175,9 +161,7 @@ export default function getMainDisplayAs(displayType) {
   if (displayType === "noSearchResults") {
     const str = `
     <div class="main-title-date-wrapper">
-      <h1 class="main-title">
-        Search Tasks/Projects
-      </h1>
+      <h1 class="main-title">Search Tasks/Projects</h1>
       <h2 class="main-date">
         ${dateToday}
       </h2>
