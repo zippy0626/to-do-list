@@ -30,7 +30,7 @@ export default function getEditorAs(editorType) {
             <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
           </label>
           <input type="text" id="task-title" name="title" placeholder="My Task" aria-placeholder="My Task"
-          required>
+          required minlength="3" maxlength="35" >
         </div>
 
         <div>
@@ -55,7 +55,7 @@ export default function getEditorAs(editorType) {
             Description
           </label>
           <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-            name="description"></textarea>
+          name="description" maxlength="200"></textarea>
         </div>
 
         <div>
@@ -94,7 +94,7 @@ export default function getEditorAs(editorType) {
         <div>
           <label for="task-subtasks">Subtasks</label>
           <textarea id="task-subtasks" name="checkList" aria-placeholder="Additional Subtasks"
-            placeholder="Additional Subtasks. Enter as a comma seperated list. "></textarea>
+          placeholder="Additional Subtasks. Enter as a comma seperated list." maxlength="500"></textarea>
         </div>
 
         <div>
@@ -103,7 +103,7 @@ export default function getEditorAs(editorType) {
             aria-placeholder="Project Title">
         </div>
 
-        <button type="submit" class="submit-button form-button">
+        <button type="button" class="submit-button form-button">
           Done
         </button>
         <button type="button" class="delete-button form-button hidden">
@@ -128,7 +128,7 @@ export default function getEditorAs(editorType) {
             <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
           </label>
           <input type="text" id="task-title" name="title" placeholder="My Task" aria-placeholder="My Task"
-          required>
+          required minlength="3" maxlength="35">
         </div>
 
         <div>
@@ -153,7 +153,7 @@ export default function getEditorAs(editorType) {
             Description
           </label>
           <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-            name="description"></textarea>
+          name="description" maxlength="200"></textarea>
         </div>
 
         <div>
@@ -206,7 +206,7 @@ export default function getEditorAs(editorType) {
             aria-placeholder="Project Title">
         </div>
 
-        <button type="submit" class="submit-button form-button">
+        <button type="button" class="submit-button form-button">
           Done
         </button>
         <button type="button" class="delete-button form-button">
@@ -230,8 +230,7 @@ export default function getEditorAs(editorType) {
             <span aria-label="Required"><strong>*</strong></span>
             <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
           </label>
-          <input type="text" id="task-title" name="title" placeholder="My Project" aria-placeholder="My Project"
-          required>
+          <input type="text" id="task-title" name="title" placeholder="My Project" aria-placeholder="My Project" required minlength="3" maxlength="35">
         </div>
 
           <div>
@@ -256,7 +255,7 @@ export default function getEditorAs(editorType) {
             Project Description
           </label>
           <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-            name="description"></textarea>
+            name="description" maxlength="200" ></textarea>
         </div>
 
         <div>
@@ -295,10 +294,11 @@ export default function getEditorAs(editorType) {
         <div>
           <label for="task-subtasks">Subtasks</label>
           <textarea id="task-subtasks" name="checkList" aria-placeholder="Additional Subtasks"
-            placeholder="Additional Subtasks. Enter as a comma seperated list. "></textarea>
+            placeholder="Additional Subtasks. Enter as a comma seperated list."
+            maxlength="500"></textarea>
         </div>
 
-        <button type="submit" class="submit-button form-button">
+        <button type="button" class="submit-button form-button">
           Done
         </button>
         <button type="button" class="delete-button form-button hidden">
@@ -323,7 +323,7 @@ export default function getEditorAs(editorType) {
             <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
           </label>
           <input type="text" id="task-title" name="title" placeholder="My Project" aria-placeholder="My Project"
-          required>
+          required minlength="3" maxlength="35">
         </div>
 
         <div>
@@ -348,7 +348,7 @@ export default function getEditorAs(editorType) {
             Project Description
           </label>
           <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-            name="description"></textarea>
+          name="description" maxlength="200"></textarea>
         </div>
 
         <div>
@@ -395,7 +395,7 @@ export default function getEditorAs(editorType) {
           <div class="message-small">A checked task means complete.</div>
         </div>
 
-        <button type="submit" class="submit-button form-button">
+        <button type="button" class="submit-button form-button">
           Done
         </button>
         <button type="button" class="delete-button form-button">
