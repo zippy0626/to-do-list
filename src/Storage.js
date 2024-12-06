@@ -28,6 +28,13 @@ const Storage = {
     return localStorage.key(index);
   },
 
+  updateItem(key, newObj) {
+    if (!this.getItem(key)) {
+      throw new Error("Please provide a valid existing key");
+    }
+    localStorage.setItem(key, JSON.stringify(newObj))
+  },
+
   remove(key){
     if (!key) {
       throw new Error("Please provide a valid key");
