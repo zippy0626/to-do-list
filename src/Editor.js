@@ -1,6 +1,6 @@
 /**
  * Returns the editor template based on the editor type.
- * @param {'default' | 'addNewTask' | 'viewEditTask' | 'addNewProject' | 'viewEditProject'} editorType - Type of editor to retrieve.
+ * @param {'default' | 'addNewTask' | 'viewEditTask' | 'addNewProject' | 'viewEditProject' | 'successfulUpdate'} editorType - Type of editor to retrieve.
  * @returns {string} The innerHTML for the editor.
  */
 
@@ -19,6 +19,15 @@ export default function getEditorAs(editorType) {
     return defaultView;
   };
 
+  if (editorType==="successfulUpdate") {
+    const defaultView = `
+      <div class="message-wrapper">
+        <div class="message successful-update">Task/Project successfully updated!</div>
+      </div>
+    `
+    return defaultView;
+  };
+
   if (editorType==="addNewTask") {
     const addNewTask = `
       <h1 class="editor-title">Add New Task</h1>
@@ -27,7 +36,7 @@ export default function getEditorAs(editorType) {
           <label for="task-title">
             Title
             <span aria-label="Required"><strong>*</strong></span>
-            <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
+            <span class="error-msg hidden task-error-msg" aria-hidden="true">Task with same name already exists!</span>
           </label>
           <input type="text" id="task-title" name="title" placeholder="My Task" aria-placeholder="My Task"
           required minlength="3" maxlength="35" >
@@ -100,7 +109,8 @@ export default function getEditorAs(editorType) {
         <div>
           <label for="task-link-to-project">Link to a Project</label>
           <input type="text" id="task-link-to-project" name="projectTitle" placeholder="Project's Title"
-            aria-placeholder="Project Title">
+          aria-placeholder="Project Title">
+          <span class="error-msg hidden project-error-msg" aria-hidden="true">Project "name" does not exist!</span>
         </div>
 
         <button type="button" class="submit-button form-button">
@@ -125,7 +135,7 @@ export default function getEditorAs(editorType) {
           <label for="task-title">
             Title
             <span aria-label="Required"><strong>*</strong></span>
-            <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
+            <span class="error-msg hidden task-error-msg" aria-hidden="true">Task Already Exists!</span>
           </label>
           <input type="text" id="task-title" name="title" placeholder="My Task" aria-placeholder="My Task"
           required minlength="3" maxlength="35">
@@ -201,7 +211,7 @@ export default function getEditorAs(editorType) {
         </div>
 
         <div>
-          <label for="task-link-to-project">Link to a Project</label>
+          <label for="task-link-to-project">Link to a Project &nbsp&nbsp<span class="error-msg hidden project-error-msg" aria-hidden="true"></span></label>
           <input type="text" id="task-link-to-project" name="projectTitle" placeholder="Project's Title"
             aria-placeholder="Project Title">
         </div>
@@ -228,7 +238,7 @@ export default function getEditorAs(editorType) {
           <label for="task-title">
             Project Title
             <span aria-label="Required"><strong>*</strong></span>
-            <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
+            <span class="error-msg hidden project-error-msg" aria-hidden="true">Task Already Exists!</span>
           </label>
           <input type="text" id="task-title" name="title" placeholder="My Project" aria-placeholder="My Project" required minlength="3" maxlength="35">
         </div>
@@ -320,7 +330,7 @@ export default function getEditorAs(editorType) {
           <label for="task-title">
             Project Title
             <span aria-label="Required"><strong>*</strong></span>
-            <span class="error-msg hidden" aria-hidden="true">Task Already Exists!</span>
+            <span class="error-msg hidden project-error-msg" aria-hidden="true">Task Already Exists!</span>
           </label>
           <input type="text" id="task-title" name="title" placeholder="My Project" aria-placeholder="My Project"
           required minlength="3" maxlength="35">
