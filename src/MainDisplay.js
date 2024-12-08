@@ -24,16 +24,12 @@ export default function getMainDisplayAs(displayType) {
     const str = `
     <div class="main-title-date-wrapper">
       <h1 class="main-title">Today's Tasks</h1>
-      <h2 class="main-date">
-        ${dateToday}
-      </h2>
+      <h2 class="main-date">${dateToday}</h2>
     </div>
 
     <div class="card-container-wrapper">
       <!-- load stuff here -->
-      <div class="card-container">
-
-      </div>
+      <div class="card-container"></div>
     </div>
     `;
     return str;
@@ -42,16 +38,12 @@ export default function getMainDisplayAs(displayType) {
     const str = `
       <div class="main-title-date-wrapper">
       <h1 class="main-title">Upcoming Tasks</h1>
-      <h2 class="main-date">
-        ${dateToday}
-      </h2>
+      <h2 class="main-date">${dateToday}</h2>
     </div>
 
     <div class="card-container-wrapper">
       <!-- load stuff here -->
-      <div class="card-container">
-
-      </div>
+      <div class="card-container"></div>
     </div>
     `;
     return str;
@@ -60,16 +52,12 @@ export default function getMainDisplayAs(displayType) {
     const str = `
       <div class="main-title-date-wrapper">
       <h1 class="main-title">Past Tasks/Projects</h1>
-      <h2 class="main-date">
-        ${dateToday}
-      </h2>
+      <h2 class="main-date">${dateToday}</h2>
     </div>
 
     <div class="card-container-wrapper">
       <!-- load stuff here -->
-      <div class="card-container">
-
-      </div>
+      <div class="card-container"></div>
     </div>
     `;
     return str;
@@ -78,9 +66,7 @@ export default function getMainDisplayAs(displayType) {
     const str = `
     <div class="main-title-date-wrapper">
       <h1 class="main-title">Today's Tasks</h1>
-      <h2 class="main-date">
-        ${dateToday}
-      </h2>
+      <h2 class="main-date">${dateToday}</h2>
     </div>
 
     <div class="card-container-wrapper">
@@ -100,9 +86,7 @@ export default function getMainDisplayAs(displayType) {
     const str = `
       <div class="main-title-date-wrapper">
       <h1 class="main-title">Upcoming Tasks</h1>
-      <h2 class="main-date">
-        ${dateToday}
-      </h2>
+      <h2 class="main-date">${dateToday}</h2>
     </div>
 
     <div class="card-container-wrapper">
@@ -122,9 +106,7 @@ export default function getMainDisplayAs(displayType) {
     const str = `
       <div class="main-title-date-wrapper">
       <h1 class="main-title">Past Tasks/Projects</h1>
-      <h2 class="main-date">
-        ${dateToday}
-      </h2>
+      <h2 class="main-date">${dateToday}</h2>
     </div>
 
     <div class="card-container-wrapper">
@@ -144,16 +126,12 @@ export default function getMainDisplayAs(displayType) {
     const str = `
     <div class="main-title-date-wrapper">
       <h1 class="main-title">Search Tasks/Projects</h1>
-      <h2 class="main-date">
-        ${dateToday}
-      </h2>
+      <h2 class="main-date">${dateToday}</h2>
     </div>
 
     <div class="card-container-wrapper">
       <!-- load stuff here -->
-      <div class="card-container">
-
-      </div>
+      <div class="card-container"></div>
     </div>
     `;
     return str;
@@ -162,9 +140,7 @@ export default function getMainDisplayAs(displayType) {
     const str = `
     <div class="main-title-date-wrapper">
       <h1 class="main-title">Search Tasks/Projects</h1>
-      <h2 class="main-date">
-        ${dateToday}
-      </h2>
+      <h2 class="main-date">${dateToday}</h2>
     </div>
 
     <div class="card-container-wrapper">
