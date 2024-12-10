@@ -156,6 +156,17 @@ const Controller = {
           ? (title = ele.querySelector(".card-title").textContent)
           : (title = ele.querySelector(".project-title").textContent);
 
+        //this is for form validation
+        const oldItemTitles = document.querySelectorAll('.clickedItemTitle');
+        for (const node of oldItemTitles) {
+          node.remove();
+        };
+        const clickedItemTitle = document.createElement('p');
+        clickedItemTitle.classList.add("hidden", "clickedItemTitle");
+        clickedItemTitle.textContent = title;
+        const body = document.querySelector('body');
+        body.appendChild(clickedItemTitle);
+
         //Check if task or project in Storage, then give it to Form Manager
         const object = Storage.getItem(title);
         if (!object.isProject) {
@@ -184,6 +195,17 @@ const Controller = {
         ele.classList.value === "card"
           ? (title = ele.querySelector(".card-title").textContent)
           : (title = ele.querySelector(".project-title").textContent);
+
+        //this is for form validation
+        const oldItemTitles = document.querySelectorAll('.clickedItemTitle');
+        for (const node of oldItemTitles) {
+          node.remove();
+        };
+        const clickedItemTitle = document.createElement('p');
+        clickedItemTitle.classList.add("hidden", "clickedItemTitle")
+        clickedItemTitle.textContent = title;
+        const body = document.querySelector('body');
+        body.appendChild(clickedItemTitle);
 
         //Check if task or project in Storage, then give it to Form Manager
         const object = Storage.getItem(title);
@@ -411,12 +433,7 @@ const Controller = {
         ) {
           const form = editor.querySelector("form");
 
-          //done button is a regular button
-          //so this is another way to check validity
-          if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-          }
+          if (!FormManager.handleFormValidation(form, editorTitle)) return;
 
           FormManager.addItemBasedOnForm(editorTitle, form);
           return;
@@ -426,12 +443,29 @@ const Controller = {
           clickedButton.contains("submit-button") &&
           (editorTitle === "View/Edit Task" || editorTitle === "View/Edit Project")
         ) {
-          const itemTitle = document.querySelector('#task-title').value;
           const form = editor.querySelector("form");
 
-          FormManager.updateItem(itemTitle, form);
-          this.showTodayTasks();
-          this.showAllProjects();
+          if (!FormManager.handleFormValidation(form, editorTitle)) return;
+
+          //get current title
+          const currentItemTitle = document.querySelector('.clickedItemTitle').textContent;
+          const newItemTitle = document.querySelector('#task-title').value;
+          FormManager.updateItem(currentItemTitle, newItemTitle, form);
+          
+          editor.innerHTML = getEditorAs("successfulUpdate");
+          
+          const successMsg = document.querySelector('.successful-update');
+          successMsg.style.backgroundColor = "whitesmoke";
+          successMsg.style.color = "black";
+          successMsg.style.padding = "10px 8px 10px 8px";
+          successMsg.style.borderRadius = "5px"
+
+          setTimeout(() => {
+            this.showTodayTasks();
+            this.showAllProjects();
+            successMsg.style.backgroundColor = "white";
+            successMsg.style.padding = "0";
+          }, 850);
           return;
         };
 
