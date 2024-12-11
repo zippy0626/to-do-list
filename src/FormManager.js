@@ -4,9 +4,10 @@ import toDoItem from "./ToDoItem";
 import Project from "./Project";
 import Storage from "./Storage";
 import Controller from "./UIController";
+import SubtaskManager from "./SubtaskManager";
 
 const FormManager = {
-  showTaskAsForm(task) {
+  showTaskInEditor(task) {
     const editor = document.querySelector("#editor");
     editor.innerHTML = getEditorAs("viewEditTask");
 
@@ -45,9 +46,10 @@ const FormManager = {
       critical.checked = true;
     }
 
-    //related subtasks
+    //Task's Subtasks
     const subtasksContainer = form.querySelector(".subtasks-wrapper");
     const subtasks = task.checkList; //array of dictionaries
+    
     if (!subtasks.length) {
       subtasksContainer.innerHTML = `
       <div class="message-wrapper">
@@ -57,27 +59,25 @@ const FormManager = {
       const msgWrapper = subtasksContainer.querySelector(".message-wrapper");
       msgWrapper.style.backgroundColor = "whitesmoke";
       msgWrapper.style.margin = "0";
-      return;
-    }
-    
-    //prevent dupe values
-    //can pass an iterable into Set constructor
-    let stringSet = new Set(subtasks.map(JSON.stringify));
-    let uniqueArray = Array.from(stringSet).map(JSON.parse);
+    };
 
-    for (const subtask of uniqueArray) {
-      let tempName = subtask.name.replace(/[^\w\s]|_/g, "").replace(/\s+/g, "-");
+    if (subtasks.length) {
+      let stringSet = new Set(subtasks.map(JSON.stringify));
+      let uniqueArray = Array.from(stringSet).map(JSON.parse);
 
-      const card = makeCardFor("subtasksWrapper", {
-        name: tempName,
-        ...subtask,
-      });
-      subtasksContainer.insertAdjacentHTML("beforeend", card);
+      for (const subtask of uniqueArray) {
+        let tempName = subtask.name
+          .replace(/[^\w\s]|_/g, "")
+          .replace(/\s+/g, "-");
 
-      //reselect added card
-      const addedCardCheckBox = subtasksContainer.querySelector(`#${tempName}`);
-      if (subtask.isComplete) addedCardCheckBox.checked = true;
-    }
+        const card = makeCardFor("subtasksWrapper", {name: tempName,...subtask,} );
+        subtasksContainer.insertAdjacentHTML("beforeend", card);
+
+        //reselect added card
+        const addedCardCheckBox = subtasksContainer.querySelector(`#${tempName}`);
+        if (subtask.isComplete) addedCardCheckBox.checked = true;
+      };
+    };
 
     const projectLinkField = form.querySelector("#task-link-to-project");
     task.projectTitle
@@ -86,7 +86,7 @@ const FormManager = {
   },
 
   //This is for when user clicks any Project
-  showProjectAsForm(project) {
+  showProjectInEditor(project) {
     const editor = document.querySelector("#editor");
     editor.innerHTML = getEditorAs("viewEditProject");
 
@@ -124,9 +124,10 @@ const FormManager = {
       critical.checked = true;
     }
 
-    //handle taskContainer/subtasks/related tasks
+    //Project's Subtasks
     const subtasksContainer = form.querySelector(".subtasks-wrapper");
     const subtasks = project.taskContainer; //array of dicts
+    
     if (!subtasks.length) {
       subtasksContainer.innerHTML = `
       <div class="message-wrapper">
@@ -137,31 +138,31 @@ const FormManager = {
       msgWrapper.style.backgroundColor = "whitesmoke";
       msgWrapper.style.margin = "0";
       return;
-    }
+    };
 
-    let stringSet = new Set(subtasks.map(JSON.stringify));
-    let uniqueArray = Array.from(stringSet).map(JSON.parse);
+    if (subtasks.length) {
+      let stringSet = new Set(subtasks.map(JSON.stringify));
+      let uniqueArray = Array.from(stringSet).map(JSON.parse);
+  
+      for (const subTask of uniqueArray) {
+        let tempName = subTask.name
+        .replace(/[^\w\s]|_/g, "")
+        .replace(/\s+/g, "-");
+  
+        const card = makeCardFor("subtasksWrapper", {name: tempName,...subTask,} );
+        subtasksContainer.insertAdjacentHTML("beforeend", card);
+  
+        //reselect added card
+        const addedCardCheckBox = subtasksContainer.querySelector(`#${tempName}`);
+        if (subTask.isComplete) addedCardCheckBox.checked = true;
+      };
+    };
 
-    for (const subTask of uniqueArray) {
-      let tempName = subTask.name.replace(/[^\w\s]|_/g, "").replace(/\s+/g, "-");
-
-      const card = makeCardFor("subtasksWrapper", {
-        name: tempName,
-        ...subTask,
-      });
-      subtasksContainer.insertAdjacentHTML("beforeend", card);
-
-      //reselect added card
-      const addedCardCheckBox = subtasksContainer.querySelector(`#${tempName}`);
-      if (subTask.isComplete) addedCardCheckBox.checked = true;
-    }
   },
 
-  addItemBasedOnForm(formTitle, form) {
-    //Differentiate between task/project
-
+  addItemFromForm(formTitle, form) {
+    
     if (formTitle === "Add New Task") {
-      //use helper fns
       let taskData = this.extractFormData(form);
       taskData = this.processFormData(taskData);
 
@@ -179,11 +180,14 @@ const FormManager = {
         Storage.set(item.title, item);
       }
 
+      //Linkage
+      SubtaskManager.linkTaskToProject(item, item.projectTitle)
+
       // Refresh views
       Controller.showTodayTasks();
       Controller.showAllProjects();
       return;
-    }
+    };
 
     if (formTitle === "Add New Project") {
       let projectData = this.extractFormData(form);
@@ -195,7 +199,7 @@ const FormManager = {
         projectData.dueDate,
         projectData.priority,
         projectData.isComplete,
-        projectData.checkList,//or taskContainer
+        projectData.checkList //or taskContainer
       );
 
       if (!Storage.getItem(item.title)) {
@@ -209,17 +213,21 @@ const FormManager = {
     }
   },
 
-  updateItem(itemTitle, form) {
-    //itemData is an object
-    let itemData = this.extractFormData(form);
+  updateItem(currentItemTitle, newItemTitle, form) {
+    let itemData = this.extractFormData(form);//itemData is an object
     itemData = this.processFormData(itemData);
 
-    //handle checkbox items
-    let checkboxes = Array.from(form.querySelectorAll('input[type="checkbox"]'));
-      checkboxes = checkboxes.map((eachItem) => eachItem.checked );
-    let checklistItems = Array.from(form.querySelectorAll('.checkbox-item'));
-      checklistItems = checklistItems.map((eachItem) => eachItem.textContent );
+    //Get Checkboxes and Checked Status
+    let checkboxes = Array.from(
+      form.querySelectorAll('input[type="checkbox"]')
+    );
+    checkboxes = checkboxes.map((eachItem) => eachItem.checked);//bool
 
+    //Get Names
+    let checklistItems = Array.from(form.querySelectorAll(".checkbox-item"));
+    checklistItems = checklistItems.map((eachItem) => eachItem.textContent);
+
+    //Handle Subtasks for Tasks/Projects
     const subtasks = [];
     for (let i = 0; i < checklistItems.length; i++) {
       const pair = {};
@@ -231,40 +239,46 @@ const FormManager = {
       subtasks.push(pair);
     };
 
-    if (Object.hasOwn(Storage.getItem(itemTitle), "isProject")) {//fix this for its task container
+    if (currentItemTitle !== newItemTitle) {
+      Storage.remove(currentItemTitle);
+    };
+
+    const formTitle = document.querySelector(".editor-title").textContent;
+    if (formTitle.includes("Project")) {
       const item = new Project(
-        itemTitle,
+        newItemTitle,
         itemData.description,
         itemData.dueDate,
         itemData.priority,
         itemData.isComplete,
-        subtasks,
-      )
-      Storage.updateItem(itemTitle, item);
-
+        subtasks
+      );
+      Storage.set(newItemTitle, item);
     } else {
       const item = new toDoItem(
-        itemTitle,
+        newItemTitle,
         itemData.description,
         itemData.dueDate,
         itemData.priority,
         subtasks,
         itemData.isComplete,
         itemData.projectTitle
-      )
-      Storage.updateItem(itemTitle, item);
+      );
+      Storage.set(newItemTitle, item);
+      SubtaskManager.refreshSubtasksForProject(item.projectTitle);
     }
   },
 
   handleDelete(item) {
     if (!item) throw new Error("Item to delete is not found!");
     Storage.remove(item.title);
+    SubtaskManager.refreshAllProjectsSubtasks();
   },
 
   //helper functions for addItem and updateItem
   extractFormData(form) {
     const formData = new FormData(form);
-    const data = {}
+    const data = {};
 
     for (const [key, value] of formData) {
       data[key] = value;
@@ -285,31 +299,117 @@ const FormManager = {
       data.dueDate = undefined;
     }
 
-    if (Object.hasOwn(data, "checkList")) {
-      
+    if (Object.hasOwn(data, "checkList") && data.checkList) {
       //handle checklist's comma seperated values
       data.checkList
-      ? (data.checkList = data.checkList
-          .split(",")
-          .map((subTask) => subTask.trim())
-          .filter((subTask) => subTask !== ""))
-      : [];
+        ? (data.checkList = data.checkList
+            .split(",")
+            .map((subTask) => subTask.trim())
+            .filter((subTask) => subTask !== ""))
+        : [];
 
-      data.checkList = data.checkList.map((subtask)=>
-        ({name:subtask, isComplete:false})
-      ); 
+      data.checkList = data.checkList.map((subtask) => ({
+        name: subtask,
+        isComplete: false,
+      }));
     }
 
     data.isComplete === "false"
       ? (data.isComplete = false)
       : (data.isComplete = true);
 
-    data.projectTitle ? data.projectTitle : null;
+    data.projectTitle ? data.projectTitle.trim() : null;
 
     return data;
   },
   //
 
+  handleFormValidation(form, formType) {
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return false;
+    }
+
+    const taskErrorMsg = document.querySelector(".task-error-msg")
+      ? document.querySelector(".task-error-msg")
+      : document.querySelector(".project-error-msg");
+
+    const projectErrorMsg = document.querySelector(".project-error-msg")
+      ? document.querySelector(".project-error-msg")
+      : document.querySelector(".task-error-msg");
+
+    //checks for dupe titles.
+    function checkDupeTitle() {
+      const itemTitle = document.querySelector("#task-title").value;
+
+      let isTaskMsgActive = false;
+      if (Object.keys(localStorage).includes(itemTitle)) {
+        if (isTaskMsgActive) return;
+        isTaskMsgActive = true;
+
+        taskErrorMsg.textContent = `Task/Project "${itemTitle}" already exists!`;
+        taskErrorMsg.classList.remove("hidden");
+
+        setTimeout(() => {
+          taskErrorMsg.classList.add("hidden");
+          isTaskMsgActive = false;
+        }, 2000);
+
+        return false;
+      }
+
+      return true;
+    }
+
+    //checks for no existing project to link to.
+    function checkExistingProjectTitle() {
+      const projectLinkTitle = document.querySelector(
+        "#task-link-to-project"
+      ).value;
+
+      let isProjectMsgActive = false;
+      if (
+        projectLinkTitle &&
+        !Object.keys(localStorage).includes(projectLinkTitle)
+      ) {
+        if (isProjectMsgActive) return;
+        isProjectMsgActive = true;
+
+        projectErrorMsg.textContent = `Project "${projectLinkTitle}" does not exist!`;
+        projectErrorMsg.classList.remove("hidden");
+
+        setTimeout(() => {
+          projectErrorMsg.classList.add("hidden");
+          isProjectMsgActive = false;
+        }, 2000);
+        return false;
+      }
+
+      return true;
+    }
+
+    if (formType === "Add New Task") {
+      const isTitleValid = checkDupeTitle();
+      const isProjectTitleValid = checkExistingProjectTitle();
+
+      //if check is false, negate it to true.
+      if (!isTitleValid || !isProjectTitleValid) {
+        return false;
+      }
+    }
+
+    if (formType === "Add New Project") {
+      const isTitleValid = checkDupeTitle();
+      if (!isTitleValid) return false;
+    }
+
+    if (formType === "View/Edit Task") {
+      const isProjectTitleValid = checkExistingProjectTitle();
+      if (!isProjectTitleValid) return false;
+    }
+
+    return true;
+  },
 };
 
 export default FormManager;
