@@ -64,7 +64,7 @@ export default function getEditorAs(editorType) {
             Description
           </label>
           <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-          name="description" maxlength="200"></textarea>
+          name="description" maxlength="350"></textarea>
         </div>
 
         <div>
@@ -113,15 +113,17 @@ export default function getEditorAs(editorType) {
           <span class="error-msg hidden project-error-msg" aria-hidden="true">Project "name" does not exist!</span>
         </div>
 
-        <button type="button" class="submit-button form-button">
-          Done
-        </button>
-        <button type="button" class="delete-button form-button hidden">
-          Delete
-        </button>
-        <button type="button" class="cancel-button form-button">
-          Cancel
-        </button>
+        <div class="button-wrapper">
+          <button type="button" class="submit-button form-button">
+            Done
+          </button>
+          <button type="button" class="delete-button form-button hidden">
+            Delete
+          </button>
+          <button type="button" class="cancel-button form-button">
+            Cancel
+          </button>
+        </div>
       </form>
     `
     return addNewTask;
@@ -163,7 +165,7 @@ export default function getEditorAs(editorType) {
             Description
           </label>
           <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-          name="description" maxlength="200"></textarea>
+          name="description" maxlength="350"></textarea>
         </div>
 
         <div>
@@ -216,15 +218,17 @@ export default function getEditorAs(editorType) {
             aria-placeholder="Project Title">
         </div>
 
-        <button type="button" class="submit-button form-button">
-          Done
-        </button>
-        <button type="button" class="delete-button form-button">
-          Delete
-        </button>
-        <button type="button" class="cancel-button form-button hidden">
-          Cancel
-        </button>
+        <div class="button-wrapper">
+          <button type="button" class="submit-button form-button">
+            Done
+          </button>
+          <button type="button" class="delete-button form-button">
+            Delete
+          </button>
+          <button type="button" class="cancel-button form-button hidden">
+            Cancel
+          </button>
+        </div>
       </form>
     `;
     return viewEditTask;
@@ -265,7 +269,7 @@ export default function getEditorAs(editorType) {
             Project Description
           </label>
           <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-            name="description" maxlength="200" ></textarea>
+            name="description" maxlength="350" ></textarea>
         </div>
 
         <div>
@@ -308,15 +312,17 @@ export default function getEditorAs(editorType) {
             maxlength="500"></textarea>
         </div>
 
-        <button type="button" class="submit-button form-button">
-          Done
-        </button>
-        <button type="button" class="delete-button form-button hidden">
-          Delete
-        </button>
-        <button type="button" class="cancel-button form-button">
-          Cancel
-        </button>
+        <div class="button-wrapper">
+          <button type="button" class="submit-button form-button">
+            Done
+          </button>
+          <button type="button" class="delete-button form-button hidden">
+            Delete
+          </button>
+          <button type="button" class="cancel-button form-button">
+            Cancel
+          </button>
+        </div>
       </form>
     `;
     return addNewProject;
@@ -358,7 +364,7 @@ export default function getEditorAs(editorType) {
             Project Description
           </label>
           <textarea id="task-desc" placeholder="What's this for?" aria-placeholder="What's this for?"
-          name="description" maxlength="200"></textarea>
+          name="description" maxlength="350"></textarea>
         </div>
 
         <div>
@@ -405,15 +411,17 @@ export default function getEditorAs(editorType) {
           <div class="message-small">A checked task means complete.</div>
         </div>
 
-        <button type="button" class="submit-button form-button">
-          Done
-        </button>
-        <button type="button" class="delete-button form-button">
-          Delete
-        </button>
-        <button type="button" class="cancel-button form-button hidden">
-          Cancel
-        </button>
+        <div class="button-wrapper">
+          <button type="button" class="submit-button form-button">
+            Done
+          </button>
+          <button type="button" class="delete-button form-button">
+            Delete
+          </button>
+          <button type="button" class="cancel-button form-button hidden">
+            Cancel
+          </button>
+        </div>
       </form>
     `
     return viewEditProject;
