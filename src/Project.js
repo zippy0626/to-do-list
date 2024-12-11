@@ -9,6 +9,7 @@ export default class Project {
     dueDate = format(addDays(new Date(), 14), "MM-dd-yyyy"),
     priority = "Medium",
     isComplete = false,
+    taskContainer = [],
   ) {
     this.title = title;
     this.description = description;
@@ -17,7 +18,7 @@ export default class Project {
     this.priority = priority; //critical, high, medium, low
     this.isComplete = isComplete;
     this.isProject = true;
-    this.taskContainer = []; // {name: , isComplete: ,}
+    this.taskContainer = taskContainer; // {name: , isComplete: ,}
   }
 
   add(task) {
