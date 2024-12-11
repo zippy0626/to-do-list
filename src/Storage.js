@@ -8,9 +8,7 @@ const Storage = {
     if (!object) {
       throw new Error("Please provide valid data");
     };
-    if (localStorage.getItem(key)) {
-      throw new Error("Key already exists in storage");
-    };
+    //allow updating
     localStorage.setItem(key, JSON.stringify(object));
   },
 
@@ -26,13 +24,6 @@ const Storage = {
       throw new Error("Please provide a valid index");
     }
     return localStorage.key(index);
-  },
-
-  updateItem(key, newObj) {
-    if (!this.getItem(key)) {
-      throw new Error("Please provide a valid existing key");
-    }
-    localStorage.setItem(key, JSON.stringify(newObj))
   },
 
   remove(key){
