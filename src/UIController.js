@@ -164,16 +164,12 @@ const Controller = {
         const clickedItemTitle = document.createElement('p');
         clickedItemTitle.classList.add("hidden", "clickedItemTitle");
         clickedItemTitle.textContent = title;
+        
         const body = document.querySelector('body');
         body.appendChild(clickedItemTitle);
 
-        //Check if task or project in Storage, then give it to Form Manager
         const object = Storage.getItem(title);
-        if (!object.isProject) {
-          FormManager.showTaskAsForm(object);
-        } else {
-          FormManager.showProjectAsForm(object);
-        }
+        FormManager.showProjectInEditor(object);
       });
     }
 
@@ -204,16 +200,13 @@ const Controller = {
         const clickedItemTitle = document.createElement('p');
         clickedItemTitle.classList.add("hidden", "clickedItemTitle")
         clickedItemTitle.textContent = title;
+        
         const body = document.querySelector('body');
         body.appendChild(clickedItemTitle);
 
         //Check if task or project in Storage, then give it to Form Manager
         const object = Storage.getItem(title);
-        if (!object.isProject) {
-          FormManager.showTaskAsForm(object);
-        } else {
-          FormManager.showProjectAsForm(object);
-        }
+        FormManager.showTaskInEditor(object);
       });
     }
   },
@@ -435,7 +428,7 @@ const Controller = {
 
           if (!FormManager.handleFormValidation(form, editorTitle)) return;
 
-          FormManager.addItemBasedOnForm(editorTitle, form);
+          FormManager.addItemFromForm(editorTitle, form);
           return;
         }
 
