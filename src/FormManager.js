@@ -3,7 +3,6 @@ import getEditorAs from "./Editor";
 import toDoItem from "./ToDoItem";
 import Project from "./Project";
 import Storage from "./Storage";
-import Controller from "./UIController";
 import SubtaskManager from "./SubtaskManager";
 
 const FormManager = {
@@ -51,6 +50,7 @@ const FormManager = {
     const subtasks = task.checkList; //array of dictionaries
     
     if (!subtasks.length) {
+      subtasksContainer.style.height = '50px'
       subtasksContainer.innerHTML = `
       <div class="message-wrapper">
         <div class="message-small">No subtasks found.</div>
@@ -129,6 +129,7 @@ const FormManager = {
     const subtasks = project.taskContainer; //array of dicts
     
     if (!subtasks.length) {
+      subtasksContainer.style.height = '60px'
       subtasksContainer.innerHTML = `
       <div class="message-wrapper">
         <div class="message">No subtasks found.</div>
@@ -166,7 +167,7 @@ const FormManager = {
       let taskData = this.extractFormData(form);
       taskData = this.processFormData(taskData);
 
-      const item = new toDoItem(
+      const newTask = new toDoItem(
         taskData.title,
         taskData.description,
         taskData.dueDate,
@@ -176,16 +177,12 @@ const FormManager = {
         taskData.projectTitle
       );
 
-      if (!Storage.getItem(item.title)) {
-        Storage.set(item.title, item);
+      if (!Storage.getItem(newTask.title)) {
+        Storage.set(newTask.title, newTask);
       }
 
       //Linkage
-      SubtaskManager.linkTaskToProject(item, item.projectTitle)
-
-      // Refresh views
-      Controller.showTodayTasks();
-      Controller.showAllProjects();
+      SubtaskManager.linkTaskToProject(newTask, newTask.projectTitle)
       return;
     };
 
@@ -193,7 +190,7 @@ const FormManager = {
       let projectData = this.extractFormData(form);
       projectData = this.processFormData(projectData);
 
-      const item = new Project(
+      const newProject = new Project(
         projectData.title,
         projectData.description,
         projectData.dueDate,
@@ -202,13 +199,22 @@ const FormManager = {
         projectData.checkList //or taskContainer
       );
 
-      if (!Storage.getItem(item.title)) {
-        Storage.set(item.title, item);
-      }
+      //Handle linkage of existing subtasks in comma seperated list
+      if (newProject.taskContainer.length) {
+        for (const subtask of newProject.taskContainer) {
+          if (Object.keys(localStorage).includes(subtask.name)) {
+            const existingSubtask = Storage.getItem(subtask.name);
+            existingSubtask.projectTitle = newProject.title;
 
-      // Refresh views
-      Controller.showTodayTasks();
-      Controller.showAllProjects();
+            Storage.set(existingSubtask.title, existingSubtask);
+          };
+        };
+      };
+      //
+
+      if (!Storage.getItem(newProject.title)) {
+        Storage.set(newProject.title, newProject);
+      }
       return;
     }
   },
@@ -238,6 +244,17 @@ const FormManager = {
       pair.isComplete = isComplete;
       subtasks.push(pair);
     };
+    //Update subtasks status in system (Only For Projects)
+    if (subtasks.length) {
+      for (const subtask of subtasks) {
+        const selectedTask = Storage.getItem(subtask.name);
+        
+        if (selectedTask) {//regular task containers "subtasks" aren't in system
+          selectedTask.isComplete = subtask.isComplete;
+          Storage.set(selectedTask.title, selectedTask);
+        };
+      };
+    };
 
     if (currentItemTitle !== newItemTitle) {
       Storage.remove(currentItemTitle);
@@ -266,7 +283,7 @@ const FormManager = {
       );
       Storage.set(newItemTitle, item);
       SubtaskManager.refreshSubtasksForProject(item.projectTitle);
-    }
+    };
   },
 
   handleDelete(item) {
