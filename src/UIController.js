@@ -27,6 +27,8 @@ const Controller = {
     this.handleClickATaskorProject();
     this.handleEditorFormButtons();
     this.handleModalButtons();
+    this.handleImportExportModalOpenClose();
+    this.handleExportDownload();
   },
 
   //Handle Searches
@@ -157,15 +159,15 @@ const Controller = {
           : (title = ele.querySelector(".project-title").textContent);
 
         //this is for form validation
-        const oldItemTitles = document.querySelectorAll('.clickedItemTitle');
+        const oldItemTitles = document.querySelectorAll(".clickedItemTitle");
         for (const node of oldItemTitles) {
           node.remove();
-        };
-        const clickedItemTitle = document.createElement('p');
+        }
+        const clickedItemTitle = document.createElement("p");
         clickedItemTitle.classList.add("hidden", "clickedItemTitle");
         clickedItemTitle.textContent = title;
-        
-        const body = document.querySelector('body');
+
+        const body = document.querySelector("body");
         body.appendChild(clickedItemTitle);
 
         const object = Storage.getItem(title);
@@ -193,15 +195,15 @@ const Controller = {
           : (title = ele.querySelector(".project-title").textContent);
 
         //this is for form validation
-        const oldItemTitles = document.querySelectorAll('.clickedItemTitle');
+        const oldItemTitles = document.querySelectorAll(".clickedItemTitle");
         for (const node of oldItemTitles) {
           node.remove();
-        };
-        const clickedItemTitle = document.createElement('p');
-        clickedItemTitle.classList.add("hidden", "clickedItemTitle")
+        }
+        const clickedItemTitle = document.createElement("p");
+        clickedItemTitle.classList.add("hidden", "clickedItemTitle");
         clickedItemTitle.textContent = title;
-        
-        const body = document.querySelector('body');
+
+        const body = document.querySelector("body");
         body.appendChild(clickedItemTitle);
 
         //Check if task or project in Storage, then give it to Form Manager
@@ -222,18 +224,20 @@ const Controller = {
     const editor = document.querySelector("#editor");
     editor.innerHTML = getEditorAs("default");
 
-    //chain array method sorting
+    //Get by earliest date
     let allObjects = Object.keys(localStorage)
       .map((key) => Storage.getItem(key))
       .sort(
-        (objectA, objectB) => new Date(objectA.dueDate) - new Date(objectB.dueDate)
+        (objectA, objectB) =>
+          new Date(objectA.dueDate) - new Date(objectB.dueDate)
       );
     allObjects
       .filter(
         (object) =>
           !object.isComplete &&
           !object.isProject &&
-          getDaysFromMilliSeconds(new Date(object.dueDate) - new Date(today)) <= 6
+          getDaysFromMilliSeconds(new Date(object.dueDate) - new Date(today)) <=
+            6
       )
       .forEach((object) => {
         const taskCard = makeCardFor("cardContainer", object);
@@ -339,14 +343,15 @@ const Controller = {
     const projectContainer = document.querySelector(".project-container");
     projectContainer.innerHTML = "";
 
-    for (let i = 0; i < localStorage.length; i++) {
-      let project = Storage.getItem(Storage.getKey(i));
-
-      if (project && project.isProject) {
+    //Default Ascending Sort
+    const allObjects = Object.keys(localStorage)
+      .map((item) => Storage.getItem(item))
+      .filter((item) => item && item.isProject)
+      .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+      .forEach((project) => {
         const projectCard = makeCardFor("projectContainer", project);
         projectContainer.insertAdjacentHTML("beforeend", projectCard);
-      }
-    }
+      });
 
     //since this method creates a new instance of the Displays
     //we need to re initialize the event listener
@@ -358,6 +363,7 @@ const Controller = {
     }
   },
 
+  //Work on this
   handleProjectSortByButton() {
     const sortByButton = document.querySelector(".sort-by-button");
     const sortOptions = document.querySelector(".sort-options");
@@ -369,28 +375,117 @@ const Controller = {
     sortOptions.addEventListener("click", (e) => {
       let targetText = e.target.textContent;
 
-      if (targetText === "Lowest Priority to Highest Priority") {
-      }
-      if (targetText === "Highest Priority to Lowest Priority") {
-      }
-      if (targetText === "Date Created") {
-      }
-      if (targetText === "Date Due") {
+      if (targetText === "Low Priority - High Priority") {
+        this.sortAllProjects("lth");
+        sortOptions.classList.toggle("hidden");
+      } else if (targetText === "High Priority - Low Priority") {
+        this.sortAllProjects("htl");
+        sortOptions.classList.toggle("hidden");
+      } else if (targetText === "Date Created - Earliest") {
+        this.sortAllProjects("dce");
+        sortOptions.classList.toggle("hidden");
+      } else if (targetText === "Date Created - Latest") {
+        this.sortAllProjects("dcl");
+        sortOptions.classList.toggle("hidden");
+      } else if (targetText === "Date Due - Ascending") {
+        this.sortAllProjects("dda");
+        sortOptions.classList.toggle("hidden");
+      } else if (targetText === "Date Due - Descending") {
+        this.sortAllProjects("ddd");
+        sortOptions.classList.toggle("hidden");
       }
     });
   },
 
   //Work on this
   sortAllProjects(sortOption) {
-    //lowToHi, highToLow, dateCreated, dateDue
     const projectContainer = document.querySelector(".project-container");
     projectContainer.innerHTML = "";
 
-    for (let i = 0; i < localStorage.length; i++) {
-      let project = Storage.getItem(Storage.getKey(i));
+    //helpers
+    function showProject(project) {
+      const projectCard = makeCardFor("projectContainer", project);
+      projectContainer.insertAdjacentHTML("beforeend", projectCard);
+    }
 
-      if (project && project.isProject) {
-      }
+    const priorityMap = {
+      Low: 1,
+      Medium: 2,
+      High: 3,
+      Critical: 4,
+    };
+
+    const reverseMap = {
+      1: "Low",
+      2: "Medium",
+      3: "High",
+      4: "Critical",
+    };
+    //
+
+    let allProjects = Object.keys(localStorage)
+      .map((key) => Storage.getItem(key))
+      .filter((item) => item && item.isProject)
+      .map((project) => {
+        project.priority = priorityMap[project.priority];
+        return project;
+      }); //need explicit return to map the priorities
+
+    if (sortOption === "lth") {
+      allProjects
+        .sort((a, b) => a.priority - b.priority)
+        .forEach((project) => {
+          project.priority = reverseMap[project.priority];
+          showProject(project);
+        });
+
+      return;
+    }
+    if (sortOption === "htl") {
+      allProjects
+        .sort((a, b) => b.priority - a.priority)
+        .forEach((project) => {
+          project.priority = reverseMap[project.priority];
+          showProject(project);
+        });
+
+      return;
+    }
+    if (sortOption === "dce") {
+      allProjects
+        .sort((a, b) => new Date(a.createDate) - new Date(b.createDate))
+        .forEach((project) => {
+          project.priority = reverseMap[project.priority];
+          showProject(project);
+        });
+      return;
+    }
+    if (sortOption === "dcl") {
+      allProjects
+        .sort((a, b) => new Date(b.createDate) - new Date(a.createDate))
+        .forEach((project) => {
+          project.priority = reverseMap[project.priority];
+          showProject(project);
+        });
+      return;
+    }
+    if (sortOption === "dda") {
+      allProjects
+        .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+        .forEach((project) => {
+          project.priority = reverseMap[project.priority];
+          showProject(project);
+        });
+      return;
+    }
+    if (sortOption === "ddd") {
+      allProjects
+        .sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate))
+        .forEach((project) => {
+          project.priority = reverseMap[project.priority];
+          showProject(project);
+        });
+      return;
     }
   },
 
@@ -402,6 +497,8 @@ const Controller = {
 
       editor.addEventListener("click", (e) => {
         const clickedButton = e.target.classList;
+        const mainDisplayTitle =
+          document.querySelector(".main-title").textContent;
 
         if (!clickedButton.contains("form-button")) return;
 
@@ -429,40 +526,61 @@ const Controller = {
           if (!FormManager.handleFormValidation(form, editorTitle)) return;
 
           FormManager.addItemFromForm(editorTitle, form);
+
+          // Refresh views
+          updateMainDisplay(mainDisplayTitle);
           return;
         }
 
         if (
           clickedButton.contains("submit-button") &&
-          (editorTitle === "View/Edit Task" || editorTitle === "View/Edit Project")
+          (editorTitle === "View/Edit Task" ||
+            editorTitle === "View/Edit Project")
         ) {
           const form = editor.querySelector("form");
 
           if (!FormManager.handleFormValidation(form, editorTitle)) return;
 
           //get current title
-          const currentItemTitle = document.querySelector('.clickedItemTitle').textContent;
-          const newItemTitle = document.querySelector('#task-title').value;
+          const currentItemTitle =
+            document.querySelector(".clickedItemTitle").textContent;
+          const newItemTitle = document.querySelector("#task-title").value;
           FormManager.updateItem(currentItemTitle, newItemTitle, form);
-          
+
           editor.innerHTML = getEditorAs("successfulUpdate");
-          
-          const successMsg = document.querySelector('.successful-update');
+
+          const successMsg = document.querySelector(".successful-update");
           successMsg.style.backgroundColor = "whitesmoke";
           successMsg.style.color = "black";
           successMsg.style.padding = "10px 8px 10px 8px";
-          successMsg.style.borderRadius = "5px"
+          successMsg.style.borderRadius = "5px";
 
           setTimeout(() => {
-            this.showTodayTasks();
-            this.showAllProjects();
+            updateMainDisplay(mainDisplayTitle);
             successMsg.style.backgroundColor = "white";
             successMsg.style.padding = "0";
-          }, 850);
+          }, 800);
           return;
-        };
-
+        }
       });
+    }
+
+    function updateMainDisplay(currentMainDisplay) {
+      if (currentMainDisplay === "Today's Tasks") {
+        Controller.showTodayTasks();
+        Controller.showAllProjects();
+        return;
+      }
+      if (currentMainDisplay === "Upcoming Tasks") {
+        Controller.showUpcomingTasks();
+        Controller.showAllProjects();
+        return;
+      }
+      if (currentMainDisplay === "Past Tasks/Projects") {
+        Controller.showPastTasksorProjects();
+        Controller.showAllProjects();
+        return;
+      }
     }
   },
 
@@ -486,7 +604,8 @@ const Controller = {
     });
     yesModalBtn.addEventListener("click", () => {
       const currentItemTitle = document.querySelector("#task-title").value;
-      const currentMainDisplayTitle = document.querySelector(".main-title").textContent;
+      const currentMainDisplayTitle =
+        document.querySelector(".main-title").textContent;
 
       const item = Storage.getItem(currentItemTitle);
       FormManager.handleDelete(item);
@@ -505,10 +624,86 @@ const Controller = {
         return;
       }
       if (currentMainDisplayTitle === "Past Tasks/Projects") {
-        this.showPastTasksorProjects()
+        this.showPastTasksorProjects();
         this.showAllProjects();
         return;
       }
+    });
+  },
+
+  handleImportExportModalOpenClose() {
+    const iEToggleButton = document.querySelector(".import-export-button");
+    const iEModal = document.querySelector("#import-export-modal");
+    iEToggleButton.addEventListener("click", () => {
+      iEModal.showModal();
+    });
+
+    const ieCloseButton = document.querySelector(".ie-close-btn");
+    ieCloseButton.addEventListener("click", () => {
+      //Dict of File objs
+      const inputtedFiles = document.querySelector("#import-data").files;
+      if (inputtedFiles.length) {
+        for (const file of inputtedFiles) {
+          if (file.type !== "application/json") {
+            continue;
+          }
+          //refer to API video
+          const fileReader = new FileReader();
+          fileReader.readAsText(file);
+          fileReader.addEventListener("load", () => {
+            const object = JSON.parse(fileReader.result);
+
+            //Parse each value (since they have backslashes)
+            const items = Object.keys(object).map((title) => {
+              let value = object[title];
+              return (value = JSON.parse(value));
+            });
+
+            if (items.length) {
+              Storage.clearAll();
+            };
+
+            for (const item of items) {
+              Storage.set(item.title, item);
+            };
+
+            this.showTodayTasks();
+            this.showAllProjects();
+          });
+        }
+      }
+
+      iEModal.close();
+    });
+  },
+
+  handleExportDownload() {
+    const downloadBtn = document.querySelector(".ie-download-btn");
+    downloadBtn.addEventListener("click", () => {
+      let userData = {};
+      
+      if (!localStorage.length) {
+        const iEModal = document.querySelector("#import-export-modal");
+        const errorMsg = iEModal.querySelector(".error-msg");
+
+        errorMsg.classList.toggle("hidden");
+        setTimeout(() => {
+          errorMsg.classList.toggle("hidden");
+        }, 1500);
+        return;
+      };
+      
+      for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        userData[key] = localStorage.getItem(key);
+      };
+
+      userData = JSON.stringify(userData, null, 2);
+
+      let blob = new Blob([userData], { type: "application/json" });
+      let url = URL.createObjectURL(blob);
+      downloadBtn.href = url;
+      downloadBtn.download = "userData.json";//user download
     });
   },
 };
