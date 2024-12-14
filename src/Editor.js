@@ -103,7 +103,7 @@ export default function getEditorAs(editorType) {
         <div>
           <label for="task-subtasks">Subtasks</label>
           <textarea id="task-subtasks" name="checkList" aria-placeholder="Additional Subtasks"
-          placeholder="Additional Subtasks. Enter as a comma seperated list." maxlength="500"></textarea>
+          placeholder="Additional Subtasks. Enter as a comma seperated list (case sensitive)." maxlength="500"></textarea>
         </div>
 
         <div>
@@ -308,7 +308,7 @@ export default function getEditorAs(editorType) {
         <div>
           <label for="task-subtasks">Subtasks</label>
           <textarea id="task-subtasks" name="checkList" aria-placeholder="Additional Subtasks"
-            placeholder="Additional Subtasks. Enter as a comma seperated list."
+            placeholder="Additional Subtasks. Enter as a comma seperated list (case sensitive)."
             maxlength="500"></textarea>
         </div>
 
