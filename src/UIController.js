@@ -208,7 +208,11 @@ const Controller = {
 
         //Check if task or project in Storage, then give it to Form Manager
         const object = Storage.getItem(title);
-        FormManager.showTaskInEditor(object);
+        if (object.isProject) {
+          FormManager.showProjectInEditor(object);
+        } else {
+          FormManager.showTaskInEditor(object);
+        };
       });
     }
   },
@@ -513,6 +517,7 @@ const Controller = {
           const modalMessage = document.querySelector(".modal-message");
           modalMessage.textContent = `Are you sure you want to delete "${currentItemTitle}"?`;
           this.toggleModalandOverlay();
+          editor.innerHTML = getEditorAs("default");
           return;
         }
 
