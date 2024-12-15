@@ -1,6 +1,6 @@
 /**
  * Returns the editor template based on the editor type.
- * @param {'default' | 'addNewTask' | 'viewEditTask' | 'addNewProject' | 'viewEditProject' | 'successfulUpdate'} editorType - Type of editor to retrieve.
+ * @param {'default' | 'addNewTask' | 'viewEditTask' | 'addNewProject' | 'viewEditProject' | 'successfulUpdate' | 'successfulAdd'} editorType - Type of editor to retrieve.
  * @returns {string} The innerHTML for the editor.
  */
 
@@ -23,6 +23,15 @@ export default function getEditorAs(editorType) {
     const defaultView = `
       <div class="message-wrapper">
         <div class="message successful-update">Task/Project successfully updated!</div>
+      </div>
+    `
+    return defaultView;
+  };
+
+  if (editorType==="successfulAdd") {
+    const defaultView = `
+      <div class="message-wrapper">
+        <div class="message successful-add">Task/Project successfully added!</div>
       </div>
     `
     return defaultView;

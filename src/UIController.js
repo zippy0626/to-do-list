@@ -497,8 +497,7 @@ const Controller = {
 
       editor.addEventListener("click", (e) => {
         const clickedButton = e.target.classList;
-        const mainDisplayTitle =
-          document.querySelector(".main-title").textContent;
+        const mainDisplayTitle = document.querySelector(".main-title").textContent;
 
         if (!clickedButton.contains("form-button")) return;
 
@@ -522,44 +521,26 @@ const Controller = {
           (editorTitle === "Add New Task" || editorTitle === "Add New Project")
         ) {
           const form = editor.querySelector("form");
-
           if (!FormManager.handleFormValidation(form, editorTitle)) return;
 
           FormManager.addItemFromForm(editorTitle, form);
-
-          // Refresh views
-          updateMainDisplay(mainDisplayTitle);
+          showSuccessMsg("add", mainDisplayTitle);
           return;
         }
 
         if (
           clickedButton.contains("submit-button") &&
-          (editorTitle === "View/Edit Task" ||
-            editorTitle === "View/Edit Project")
+          (editorTitle === "View/Edit Task" || editorTitle === "View/Edit Project")
         ) {
           const form = editor.querySelector("form");
 
           if (!FormManager.handleFormValidation(form, editorTitle)) return;
 
           //get current title
-          const currentItemTitle =
-            document.querySelector(".clickedItemTitle").textContent;
+          const currentItemTitle = document.querySelector(".clickedItemTitle").textContent;
           const newItemTitle = document.querySelector("#task-title").value;
           FormManager.updateItem(currentItemTitle, newItemTitle, form);
-
-          editor.innerHTML = getEditorAs("successfulUpdate");
-
-          const successMsg = document.querySelector(".successful-update");
-          successMsg.style.backgroundColor = "whitesmoke";
-          successMsg.style.color = "black";
-          successMsg.style.padding = "10px 8px 10px 8px";
-          successMsg.style.borderRadius = "5px";
-
-          setTimeout(() => {
-            updateMainDisplay(mainDisplayTitle);
-            successMsg.style.backgroundColor = "white";
-            successMsg.style.padding = "0";
-          }, 800);
+          showSuccessMsg("update", mainDisplayTitle);
           return;
         }
       });
@@ -582,6 +563,42 @@ const Controller = {
         return;
       }
     }
+
+    function showSuccessMsg(msgType, mainDisplayTitle) {
+      //Show successful msg and then update main display based on display's title
+      if (msgType==="add") {
+        editor.innerHTML = getEditorAs('successfulAdd');
+        const msg = document.querySelector('.successful-add');
+        msg.style.backgroundColor = "whitesmoke";
+        msg.style.color = "black";
+        msg.style.padding = "10px 8px 10px 8px";
+        msg.style.borderRadius = "5px";
+
+        setTimeout(() => {
+          updateMainDisplay(mainDisplayTitle);
+          editor.innerHTML = getEditorAs("default");
+        }, 800);
+
+        return;  
+      };
+
+      if (msgType==="update") {
+        editor.innerHTML = getEditorAs('successfulUpdate');
+        const msg = document.querySelector('.successful-update');
+        msg.style.backgroundColor = "whitesmoke";
+        msg.style.color = "black";
+        msg.style.padding = "10px 8px 10px 8px";
+        msg.style.borderRadius = "5px";
+
+        setTimeout(() => {
+          updateMainDisplay(mainDisplayTitle);
+          editor.innerHTML = getEditorAs("default");
+        }, 800);
+
+        return;
+      };
+    };
+
   },
 
   toggleModalandOverlay() {
