@@ -649,6 +649,8 @@ const Controller = {
         this.showAllProjects();
         return;
       }
+      const editor = document.querySelector('#editor');
+      editor.innerHTML = getEditorAs("default");
     });
   },
 
