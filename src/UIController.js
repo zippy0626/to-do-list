@@ -517,7 +517,6 @@ const Controller = {
           const modalMessage = document.querySelector(".modal-message");
           modalMessage.textContent = `Are you sure you want to delete "${currentItemTitle}"?`;
           this.toggleModalandOverlay();
-          editor.innerHTML = getEditorAs("default");
           return;
         }
 
