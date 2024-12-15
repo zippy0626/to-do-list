@@ -15,7 +15,8 @@ A simple Task Manager that can track and manage your tasks and projects.
 
 ## Demo
 
-[Live Demo](https://zippy0626.github.io/to-do-list/)
+[Live Demo](<a href="https://zippy0626.github.io/to-do-list/" target="_blank" rel="noopener noreferrer">About The Odin Project</a>
+)
 
 ## Preview
 
