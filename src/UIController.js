@@ -635,22 +635,26 @@ const Controller = {
 
       //refresh
       if (currentMainDisplayTitle === "Today's Tasks") {
+        const editor = document.querySelector('#editor');
+        editor.innerHTML = getEditorAs("default");
         this.showTodayTasks();
         this.showAllProjects();
         return;
       }
       if (currentMainDisplayTitle === "Upcoming Tasks") {
+        const editor = document.querySelector('#editor');
+        editor.innerHTML = getEditorAs("default");
         this.showUpcomingTasks();
         this.showAllProjects();
         return;
       }
       if (currentMainDisplayTitle === "Past Tasks/Projects") {
+        const editor = document.querySelector('#editor');
+        editor.innerHTML = getEditorAs("default");
         this.showPastTasksorProjects();
         this.showAllProjects();
         return;
       }
-      const editor = document.querySelector('#editor');
-      editor.innerHTML = getEditorAs("default");
     });
   },
 
