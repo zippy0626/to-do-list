@@ -2,14 +2,14 @@
 *A brief tagline or description of your project.*  
 
 ## Table of Contents
-- [Demo] (#demo)
-- [Features] (#features)
-- [Technologies Used] (#technologies-used)
-- [Installation] (#installation)
-- [Usage] (#usage)
-- [Preview] (#preview)
-- [Contributing] (#contributing)
-- [License] (#license)
+- [Demo](#demo)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Preview](#preview)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Demo  
 [Live Demo](#) (Replace `#` with your live website URL)  
