@@ -16,7 +16,15 @@ const Storage = {
     if (!key) {
       throw new Error("Please provide a valid key");
     };
-    return JSON.parse(localStorage.getItem(key))
+    const item = localStorage.getItem(key);
+    if (!item) return null;
+
+    try {
+      return JSON.parse(item);
+    } catch (error) {
+      console.warn(`Invalid JSON for key "${key}". Returning raw value.`);
+      return item;
+    }
   },
 
   getKey(index) {
